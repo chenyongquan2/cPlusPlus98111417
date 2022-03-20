@@ -15,7 +15,6 @@ void myFunction()
 	number1 = 10;
 }
 
-
 class Time
 {
 public:
@@ -31,7 +30,9 @@ public:
 	static void myStaticFunction(int testValue);
 };
 
-
+//如何定义静态成员变量：一般在一个.cpp文件的开头定义静态成员变量。这样可以在任何函数前面进行分配内存,确保在调用前就已经初始化。
+//静态成员属性显式初始化-分配内存
+int Time::myCount = 0;
 
 Time::Time(int TemHour, int TemMinute, int TemSecond) :Hour(TemHour), Minute(TemMinute), Second(TemSecond)//把形式参数赋值给成员属性
 {
@@ -47,8 +48,6 @@ void Time::myStaticFunction(int testValue)
 	//Hour = 12;	//error不是静态成员属性，不能在静态成员函数访问
 }
 
-//静态成员属性显式初始化-分配内存
-int Time::myCount = 0;
 int main(void)
 {
 	
@@ -58,7 +57,7 @@ int main(void)
 	Time::myCount = 100;
 	cout << myTime01.myCount << endl;
 
-	//如何定义静态成员变量：一般在一个.cpp文件的开头定义静态成员变量。这样可以在任何函数前面进行分配内存。
+	
 
 	//静态成员函数
 	//使用类调用
