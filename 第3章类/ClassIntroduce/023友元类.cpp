@@ -10,12 +10,12 @@ class A
 private:
 	int number;
 public:
-	//¹¹Ôìº¯Êý
+	//æž„é€ å‡½æ•°
 	A(int number)
 	{
 		this->number = number;
 	}
-	friend class  B;	//ÕâÀï»¹Ã»ÓÐ¶¨ÒåÀàB£¬µ«ÊÇÃ»±¨´í£¬Èç¹ûÓÐµÄ±àÒëÆ÷±¨´í£¬¿ÉÒÔÔÚÇ°Ãæ¼ÓÒ»¸öÀàÉùÃ÷ class B;
+	friend class  B;	//è¿™é‡Œè¿˜æ²¡æœ‰å®šä¹‰ç±»Bï¼Œä½†æ˜¯æ²¡æŠ¥é”™ï¼Œå¦‚æžœæœ‰çš„ç¼–è¯‘å™¨æŠ¥é”™ï¼Œå¯ä»¥åœ¨å‰é¢åŠ ä¸€ä¸ªç±»å£°æ˜Ž class B;
 	
 };
 
@@ -32,7 +32,7 @@ public:
 
 void B::myFunction01(const A&temA)
 {
-	cout << "¿ÉÒÔ·ÃÎÊÀàAµÄË½ÓÐ³ÉÔ±" << endl;
+	cout << "å¯ä»¥è®¿é—®ç±»Açš„ç§æœ‰æˆå‘˜" << endl;
 	cout << temA.number << endl;
 	
 }
@@ -50,18 +50,18 @@ int main(void)
 
 }
 /*
-*(1)ÓÑÔªÀà
-*	ÉùÃ÷Ò»¸öÀàBÊÇÀàAµÄÓÑÔªÀà£¨ÔÚÀàAÀïÃæÉùÃ÷friend class B;£©£¬
-*		ÔòÀàBµÄ³ÉÔ±º¯Êý¿ÉÒÔ·ÃÎÊÀàAµÄËùÓÐ³ÉÔ±º¯ÊýºÍ³ÉÔ±ÊôÐÔ
+*(1)å‹å…ƒç±»
+*	å£°æ˜Žä¸€ä¸ªç±»Bæ˜¯ç±»Açš„å‹å…ƒç±»ï¼ˆåœ¨ç±»Aé‡Œé¢å£°æ˜Žfriend class B;ï¼‰ï¼Œ
+*		åˆ™ç±»Bçš„æˆå‘˜å‡½æ•°å¯ä»¥è®¿é—®ç±»Açš„æ‰€æœ‰æˆå‘˜å‡½æ•°å’Œæˆå‘˜å±žæ€§
 *
-*	1.Ã¿¸öÀà¶¼¸ºÔð¿ØÖÆ×Ô¼ºµÄÓÑÔªº¯ÊýºÍÓÑÔªº¯Êý¡££¨×Ô¼ºÀàµÄÓÑÔªº¯Êý£¬ÓÑÔªº¯ÊýÔÚ×Ô¼ºÀàÉùÃ÷£©
-*	2.ÓÑÔª¹ØÏµ²»ÄÜ±»¼Ì³Ð
-*	3.ÓÑÔª¹ØÏµÊÇµ¥ÏòµÄ¡£ÀàAÊÇÀàBµÄÓÑÔªÀà£¬µ«ÊÇÀàBÊÇÀàAµÄÓÑÔªÀà
-*	4.ÓÑÔª¹ØÏµÃ»ÓÐ´«µÝÐÔ¡£A-->B-->C
+*	1.æ¯ä¸ªç±»éƒ½è´Ÿè´£æŽ§åˆ¶è‡ªå·±çš„å‹å…ƒå‡½æ•°å’Œå‹å…ƒå‡½æ•°ã€‚ï¼ˆè‡ªå·±ç±»çš„å‹å…ƒå‡½æ•°ï¼Œå‹å…ƒå‡½æ•°åœ¨è‡ªå·±ç±»å£°æ˜Žï¼‰
+*	2.å‹å…ƒå…³ç³»ä¸èƒ½è¢«ç»§æ‰¿
+*	3.å‹å…ƒå…³ç³»æ˜¯å•å‘çš„ã€‚ç±»Aæ˜¯ç±»Bçš„å‹å…ƒç±»ï¼Œä½†æ˜¯ç±»Bä¸æ˜¯ç±»Açš„å‹å…ƒç±»
+*	4.å‹å…ƒå…³ç³»æ²¡æœ‰ä¼ é€’æ€§ã€‚A-->B-->C
 *	
 *
-*2019Äê11ÔÂ20ÈÕ16:52:37
-* SunriseÓÚ¶«±±µçÁ¦´óÑ§µÚ¶þ½ÌÑ§Â¥1121ÊµÑéÊÒ
+*2019å¹´11æœˆ20æ—¥16:52:37
+* SunriseäºŽä¸œåŒ—ç”µåŠ›å¤§å­¦ç¬¬äºŒæ•™å­¦æ¥¼1121å®žéªŒå®¤
 
 */
 
