@@ -13,11 +13,11 @@ private:
 public:
 	explicit Time(int Hour, int Minute, int Second);
 	Time(int Hour);
-	Time() = default;	//±àÒëÆ÷Îª=defaultÕâÖÖº¯Êı×Ô¶¯Éú³Éº¯ÊıÌå
-	//Time() = delete;	//ÈÃ±àÒëÆ÷½ûÖ¹Éú³ÉÄ³¸öº¯Êı
+	Time() = default;	//ç¼–è¯‘å™¨ä¸º=defaultè¿™ç§å‡½æ•°è‡ªåŠ¨ç”Ÿæˆå‡½æ•°ä½“
+	//Time() = delete;	//è®©ç¼–è¯‘å™¨ç¦æ­¢ç”ŸæˆæŸä¸ªå‡½æ•°
 };
 
-Time::Time(int TemHour, int TemMinute, int TemSecond) :Hour(TemHour), Minute(TemMinute), Second(TemSecond)//°ÑĞÎÊ½²ÎÊı¸³Öµ¸ø³ÉÔ±ÊôĞÔ
+Time::Time(int TemHour, int TemMinute, int TemSecond) :Hour(TemHour), Minute(TemMinute), Second(TemSecond)//æŠŠå½¢å¼å‚æ•°èµ‹å€¼ç»™æˆå‘˜å±æ€§
 {
 }
 Time::Time(int Hour)
@@ -30,8 +30,8 @@ int main(void)
 {
 	Time myTime01 = Time(12, 12, 12);
 
-	//Ä¬ÈÏ¹¹Ôìº¯Êı
-	Time myTime02;	//Ä¬ÈÏ¹¹Ôìº¯Êı
+	//é»˜è®¤æ„é€ å‡½æ•°
+	Time myTime02;	//é»˜è®¤æ„é€ å‡½æ•°
 	system("pause");
 	return 0;
 
@@ -40,9 +40,9 @@ int main(void)
 
 /*
 *(1)=default =delete
-	Time() = default; ±àÒëÆ÷ÄÜ¹»×Ô¶¯ÎªÎÒÃÇÉú³Éº¯ÊıÌå£¬ÓÃÓÚÌØÊâµÄº¯Êı
-	Ö»ÄÜÓÃÓÚ¹¹Ôìº¯Êı£¬¿½±´¹¹Ôìº¯ÊıµÈÌØÊâº¯Êı
-*(2)Time() = delete;	//ÈÃ±àÒëÆ÷½ûÖ¹Éú³ÉÄ³¸öº¯Êı
+	Time() = default; ç¼–è¯‘å™¨èƒ½å¤Ÿè‡ªåŠ¨ä¸ºæˆ‘ä»¬ç”Ÿæˆå‡½æ•°ä½“ï¼Œç”¨äºç‰¹æ®Šçš„å‡½æ•°
+	åªèƒ½ç”¨äºé»˜è®¤æ„é€ å‡½æ•°(å¸¦å‚æ•°çš„æ„é€ å‡½æ•°ä¸è¡Œ)ï¼Œæ‹·è´æ„é€ å‡½æ•°ç­‰ç‰¹æ®Šå‡½æ•°ï¼Œæ™®é€šæˆå‘˜å‡½æ•°ä¹Ÿä¸è¡Œ
+*(2)Time() = delete;	//è®©ç¼–è¯‘å™¨ç¦æ­¢ç”ŸæˆæŸä¸ªå‡½æ•°
 *(3)
 *
 */
