@@ -7,74 +7,22 @@ using namespace std;
 class A
 {
 public:
-	int a;
-	A(int i) :a(i)
-	{
-		cout << "A¹¹Ôìº¯ÊıÖ´ĞĞ" << endl;
-
-	}
-	virtual ~A()
-	{
-		cout << "AÎö¹¹º¯Êı" << endl;
-	}
+	A(int i) {};
 };
-class B1 :public A
+class B
 {
 public:
-	int b1;
-	B1(int i, int j) :A(i), b1(j)
-	{
-		cout << "B1¹¹Ôìº¯ÊıÖ´ĞĞ" << endl;
-
-	}
-	virtual ~B1()
-	{
-		cout << "B1Îö¹¹º¯Êı" << endl;
-	}
+	B(int i) {};
 };
-
-class B2 :public A
+class C:public A,public B
 {
 public:
-	int b2;
-	B2(int i, int j) :A(i), b2(j)
-	{
-		cout << "B2¹¹Ôìº¯ÊıÖ´ĞĞ" << endl;
-
-	}
-	virtual ~B2()
-	{
-		cout << "B2Îö¹¹º¯Êı" << endl;
-	}
+	//using A::A;ç»§æ‰¿Açš„æ„é€ å‡½æ•°=>C(int i):A(i){}
+	//using B::B;ç»§æ‰¿Bçš„æ„é€ å‡½æ•°=>C(int i):B(i){}
+	//ä¸Šé¢å†²çª
+	C(int c) :A(c), B(c) {}//å¦‚æœä¸€ä¸ªç±»ä»å®ƒçš„åŸºç±»ä¸­ç»§æ‰¿äº†ç›¸åŒçš„æ„é€ å‡½æ•°ï¼Œè¿™ä¸ªç±»å¿…é¡»ä¸ºè¯¥æ„é€ å‡½æ•°å®šä¹‰è‡ªå·±çš„ç‰ˆæœ¬ã€‚
 };
 
-
-class C :public B1, public B2		//ÅÉÉúÁĞ±í
-{
-public:
-	int c;
-	C(int i, int j, int k) :B1(i, j), B2(i, j), c(k)//×Ô¼ºµÄ°æ±¾
-	{
-		cout << "c¹¹Ôìº¯ÊıÖ´ĞĞ" << endl;
-	}
-	//using B1::B1;
-	//using B2::B2;
-public:
-	static  int static_number;//ÉùÃ÷¾²Ì¬±äÁ¿
-public:
-	virtual ~C()
-	{
-		cout << "CÎö¹¹º¯Êı" << endl;
-	}
-};
-
-int C::static_number = 10;//¶¨Òå±äÁ¿£¬·ÖÅäÄÚ´æ¿Õ¼ä£¬¸³Óè³õÖµ
-
-void playObject()
-{
-	;
-
-}
 
 int main(void)
 {
@@ -84,7 +32,7 @@ int main(void)
 }
 
 /*
-*(1)´Ó¶à¸ö¸¸Àà¼Ì³Ğ¹¹Ôìº¯Êı
-*	Èç¹ûÒ»¸öÀà´ÓËüµÄ»ùÀàÖĞ¼Ì³ĞÁËÏàÍ¬µÄ¹¹Ôìº¯Êı£¬Õâ¸öÀà±ØĞëÎª¸Ã¹¹Ôìº¯Êı¶¨Òå×Ô¼ºµÄ°æ±¾¡£
+*(1)ä»å¤šä¸ªçˆ¶ç±»ç»§æ‰¿æ„é€ å‡½æ•°
+*	å¦‚æœä¸€ä¸ªç±»ä»å®ƒçš„åŸºç±»ä¸­ç»§æ‰¿äº†ç›¸åŒçš„æ„é€ å‡½æ•°ï¼Œè¿™ä¸ªç±»å¿…é¡»ä¸ºè¯¥æ„é€ å‡½æ•°å®šä¹‰è‡ªå·±çš„ç‰ˆæœ¬ã€‚
 *
 */
