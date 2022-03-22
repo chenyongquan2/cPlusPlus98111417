@@ -18,6 +18,8 @@ myClass operator+(myClass&myclass01,myClass&myclass02)
 	myclass03.number01 = myclass01.number01 + myclass02.number01;
 	myclass03.number02 = myclass01.number02 + myclass02.number02;
 	return myclass03;
+	//ä¼˜åŒ–
+	//return myClass(myclass01.number01 + myclass02.number01,myclass01.number02 + myclass02.number02);
 
 }
 int main(void)
@@ -37,5 +39,5 @@ int main(void)
 }
 
 /*
- * ÀàÍâÔËËã·ûÖØÔØ	--ĞèÒªÊ¹ÓÃÁ½¸öÀà¶ÔÏóÒıÓÃ£¬ÔÚÀàÄÚ½øĞĞÔËËã·ûÖØÔØ£¬µ÷ÓÃµÄ×óÖµÒş²ØÔÚthisÖ¸ÕëÀïÃæ
+ * ç±»å¤–è¿ç®—ç¬¦é‡è½½	--éœ€è¦ä½¿ç”¨ä¸¤ä¸ªç±»å¯¹è±¡å¼•ç”¨ï¼Œåœ¨ç±»å†…è¿›è¡Œè¿ç®—ç¬¦é‡è½½ï¼Œè°ƒç”¨çš„å·¦å€¼éšè—åœ¨thisæŒ‡é’ˆé‡Œé¢
  */
