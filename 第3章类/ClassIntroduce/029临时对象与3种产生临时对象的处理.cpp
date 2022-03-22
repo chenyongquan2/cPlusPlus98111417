@@ -70,7 +70,7 @@ TestClass DoubleTestClass(TestClass&tc)
 	//2.退出函数作用域te被析构；
 	//3.返回后并调用析构函数（如果外面没有接收 eg:TestClass newTest = DoubleTestClass(tc),这种情况如果有接收的话，系统会把这个临时对象给分配在外面接收的预留空间上。）
 	//优化
-	//return TestClass(tc.value01 * 2, tc.value02 * 2);
+	//return TestClass(tc.value01 * 2, tc.value02 * 2);//一个构造，如果外面没有对象接收这个临时对象，会退出这个函数析构掉这个临时对象。
 }
 int main(void)
 {
@@ -122,11 +122,14 @@ int main(void)
 
 	TestClass test_class04(23, 34);
 	DoubleTestClass(test_class04);//没有接收，函数返回的临时对象会被立即析构掉
-	test_class04=DoubleTestClass(test_class04);
-	//这里接收临时对象调用拷贝赋值运算符函数进行赋值，就不会调用析构函数
+	test_class04=DoubleTestClass(test_class04);//这里接收临时对象调用拷贝赋值运算符函数进行赋值，就不会调用析构函数
+	TestClass test_classxx = DoubleTestClass(test_class04);//这里在函数里面就会调用拷贝构造函数生成临时对象，
+	//临时对象不会被析构，因为会被外面的test_classxx给接管了(接收临时对象的空间是分配再外面定义的test_classxx的预留空间上的)
 
-	//如果使用右值引用来接受
+
+	//如果使用右值引用来接受.与上面那一行TestClass test_classxx = DoubleTestClass(test_class04);得到的结果接收效果是一样的
 	TestClass &&test_class05 = DoubleTestClass(test_class04);//临时对象不会被析构,因为是引用，所以不会调用拷贝赋值运算符
+	//临时对象是右值，所以才能被右值引用所接管
 	system("pause");
 	return 0;
 }
