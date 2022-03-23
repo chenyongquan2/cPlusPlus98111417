@@ -6,27 +6,29 @@
 
 using namespace std;
 
-class TypeConversion	//¹¦ÄÜ£º½«Ò»¸öÊý×Ö×ª»»Îª0-100´æ´¢ÏÂÀ´
+class TypeConversion	//åŠŸèƒ½ï¼šå°†ä¸€ä¸ªæ•°å­—è½¬æ¢ä¸º0-100å­˜å‚¨ä¸‹æ¥
 {
-	//¶¨ÒåÒ»¸öº¯ÊýÖ¸ÕëÀàÐÍ£¬´ú±íº¯Êý´øÒ»¸öº¯ÊýÐÎ²Î£¬Ã»ÓÐ·µ»ØÀàÐÍ
+	//å®šä¹‰ä¸€ä¸ªå‡½æ•°æŒ‡é’ˆç±»åž‹ï¼Œä»£è¡¨å‡½æ•°å¸¦ä¸€ä¸ªå‡½æ•°å½¢å‚ï¼Œæ²¡æœ‰è¿”å›žç±»åž‹
 	typedef void(*myFunction)(int);
-	//µÈ¼ÛÓÚ
+	//ç­‰ä»·äºŽ
 	//using myFunction = void(*)(int);
 public:
-	static void myfunc(int value)	//¾²Ì¬³ÉÔ±º¯Êý
+	static void myfunc(int value)	//é™æ€æˆå‘˜å‡½æ•°
 	{
 		int test;
 		test = 11;
 	}
-	//ÐÂµÄÀàÐÍ×ª»»ÔËËã·û£¬½«±¾ÀàÀàÐÍ×ª»»ÎªÒ»¸öº¯ÊýÖ¸ÕëÀàÐÍ
+	//è½¬æ¢è¿ç®—ç¬¦æ ¼å¼: operator ç±»åž‹()
+	//Todoï¼šè½¬æ¢ä¸ºå‡½æ•°æŒ‡é’ˆçš„è½¬æ¢è¿ç®—ç¬¦
+	//æ–°çš„ç±»åž‹è½¬æ¢è¿ç®—ç¬¦ï¼Œå°†æœ¬ç±»ç±»åž‹è½¬æ¢ä¸ºä¸€ä¸ªå‡½æ•°æŒ‡é’ˆç±»åž‹
 	operator myFunction()
 	{
-		//±ØÐëÒª·µ»ØÒ»¸öº¯ÊýÖ¸
-		return myfunc;//º¯ÊýÃû×Ö£¨º¯ÊýµØÖ·£©·µ»Ø¼´¿É
+		//å¿…é¡»è¦è¿”å›žä¸€ä¸ªå‡½æ•°æŒ‡
+		return myfunc;//å‡½æ•°åå­—ï¼ˆå‡½æ•°åœ°å€ï¼‰è¿”å›žå³å¯
 	}
 	
 public:
-	//ÀàÐÍ×ª»»¹¹Ôìº¯Êý--½«Ò»¸öintÀàÐÍÊý×Ö×ª»»ÎªTypeConversionÀàÐÍ
+	//ç±»åž‹è½¬æ¢æž„é€ å‡½æ•°--å°†ä¸€ä¸ªintç±»åž‹æ•°å­—è½¬æ¢ä¸ºTypeConversionç±»åž‹
 	//explicit TypeConversion(int x = 0) :number01(x)
 	TypeConversion(int x = 0) :number01(x)
 	{
@@ -39,7 +41,7 @@ public:
 			number01 = x;
 		}
 	}
-	//ÀàÐÍ×ª»»ÔËËã·û--Àà--->>>>>>>ÆäËûÊý¾ÝÀàÐÍ
+	//ç±»åž‹è½¬æ¢è¿ç®—ç¬¦--ç±»--->>>>>>>å…¶ä»–æ•°æ®ç±»åž‹
 	//explicit operator int()const
 	operator int()const
 	{
@@ -57,18 +59,18 @@ public:
 
 int main(void)
 {
-	TypeConversion tc = 12;//ÒþÊ½ÀàÐÍ×ª»»£¬½«Êý×Ö×ª»»ÎªÀà¶ÔÏó£¬µ÷ÓÃÀàÐÍ×ª»»¹¹Ôìº¯Êý£¬¼ÓÉÏexplict½ûÖ¹ÒþÊ½ÀàÐÍ×ª»»
-						   //°Ñ12ÒþÊ½ÀàÐÍ×ª»»ÎªÒ»¸öÁÙÊ±¶ÔÏó£¬È»ºó¹¹½¨ÔÚtc·ÖÅäµÄÄÚ´æ¿Õ¼äÖÐ¡£
+	TypeConversion tc = 12;//éšå¼ç±»åž‹è½¬æ¢ï¼Œå°†æ•°å­—è½¬æ¢ä¸ºç±»å¯¹è±¡ï¼Œè°ƒç”¨ç±»åž‹è½¬æ¢æž„é€ å‡½æ•°ï¼ŒåŠ ä¸Šexplictç¦æ­¢éšå¼ç±»åž‹è½¬æ¢
+						   //æŠŠ12éšå¼ç±»åž‹è½¬æ¢ä¸ºä¸€ä¸ªä¸´æ—¶å¯¹è±¡ï¼Œç„¶åŽæž„å»ºåœ¨tcåˆ†é…çš„å†…å­˜ç©ºé—´ä¸­ã€‚
 
-	TypeConversion tc02(22);//µ÷ÓÃÀàÐÍ×ª»»¹¹Ôìº¯Êý£¬µ«ÊÇÃ»ÓÐÒþÊ½ÀàÐÍ×ª»»
-	tc02(123);//¿´ÆðÀ´ÊÇ¸ö¿Éµ÷ÓÃ¶ÔÏóµÄ¸Ð¾õ
-	/*ÕâÒ»ÐÐµ÷ÓÃÁËÁ½¸öº¯Êý-------------------------------------------------
-	 * µ÷ÓÃoperator myFunction()ÀàÐÍ×ª»»º¯Êý·µ»ØÒ»¸öº¯ÊýÖ¸Õë£¬È»ºóµ÷ÓÃ¶ÔÓ¦µÄº¯Êý¡£  
+	TypeConversion tc02(22);//è°ƒç”¨ç±»åž‹è½¬æ¢æž„é€ å‡½æ•°ï¼Œä½†æ˜¯æ²¡æœ‰éšå¼ç±»åž‹è½¬æ¢
+	tc02(123);//çœ‹èµ·æ¥æ˜¯ä¸ªå¯è°ƒç”¨å¯¹è±¡çš„æ„Ÿè§‰
+	/*è¿™ä¸€è¡Œè°ƒç”¨äº†ä¸¤ä¸ªå‡½æ•°-------------------------------------------------
+	 * è°ƒç”¨operator myFunction()ç±»åž‹è½¬æ¢å‡½æ•°è¿”å›žä¸€ä¸ªå‡½æ•°æŒ‡é’ˆï¼Œç„¶åŽè°ƒç”¨å¯¹åº”çš„å‡½æ•°ã€‚  
 	 */
-	//ÏÔÊ½µ÷ÓÃ
+	//æ˜¾å¼è°ƒç”¨
 	tc02.operator TypeConversion::myFunction()(123);
 	/*
-	 * tc02.operator TypeConversion::myFunction()·µ»ØµÄÊÇº¯ÊýµØÖ·£¬È»ºóµ÷ÓÃº¯ÊýµØÖ·
+	 * tc02.operator TypeConversion::myFunction()è¿”å›žçš„æ˜¯å‡½æ•°åœ°å€ï¼Œç„¶åŽè°ƒç”¨å‡½æ•°åœ°å€
 	 */
 
 	
@@ -79,7 +81,7 @@ int main(void)
 
 /*
 *
-*(1)Àà¶ÔÏó×ª»»Îªº¯ÊýÖ¸Õë
+*(1)ç±»å¯¹è±¡è½¬æ¢ä¸ºå‡½æ•°æŒ‡é’ˆ
 *	
 *
 *
