@@ -5,7 +5,7 @@
 
 using namespace std;
 
-//Çó×Ö·û´®µÄ³¤¶È
+//æ±‚å­—ç¬¦ä¸²çš„é•¿åº¦
 template<typename T>
 typename T::size_type GetLength(const T&c)
 {
@@ -20,7 +20,7 @@ typename T::size_type GetLength(const T&c)
 int main(void)
 {
 	string mytest = "jisuanjizuchegnyuanli";
-	string::size_type size = GetLength(mytest);//µÈ¼ÛÓÚÎŞ·ûºÅÕûĞÎ
+	string::size_type size = GetLength(mytest);//ç­‰ä»·äºæ— ç¬¦å·æ•´å½¢
 
 	
 	system("pause");
@@ -28,19 +28,21 @@ int main(void)
 }
 
 /*
-*(1)typenameµÄÊ¹ÓÃ³¡ºÏ
-*	1.ÔÚÄ£°å¶¨ÒåÀïÃæ¡£typename±êÃ÷ÆäºóµÄ²ÎÊıÊÇÀàĞÍ²ÎÊı		template<typename T,int a,int b>
-*	template<typename T>		//Ãû×ÖÎªTµÄÄ£°å²ÎÊı
-*	typename ¿ÉÒÔÊ¹ÓÃclass£¬ÕâÀïµÄclass²»ÊÇÀà¶¨Òå£¬±íÊ¾ÀàĞÍ²ÎÊı
-*	2.Ê¹ÓÃÀàµÄÀàĞÍ³ÉÔ±£¬ÓÃtypenameÀ´±íÊ¾ÕâÊÇÒ»¸öÀàĞÍ
-*	::¿ÉÒÔ±íÊ¾Àà³ÉÔ±×÷ÓÃÓò
-*	::»¹¿ÉÒÔ±íÊ¾·ÃÎÊÄ£°åÀàµÄÀàĞÍ³ÉÔ±¡£
-*				º¯Êı·µ»ØÖµ
+*(1)typenameçš„ä½¿ç”¨åœºåˆ
+*	1.åœ¨æ¨¡æ¿å®šä¹‰é‡Œé¢ã€‚typenameæ ‡æ˜å…¶åçš„å‚æ•°æ˜¯ç±»å‹å‚æ•°		template<typename T,int a,int b>
+*	template<typename T>		//åå­—ä¸ºTçš„æ¨¡æ¿å‚æ•°
+*	typename å¯ä»¥ä½¿ç”¨classï¼Œè¿™é‡Œçš„classä¸æ˜¯ç±»å®šä¹‰ï¼Œè¡¨ç¤ºç±»å‹å‚æ•°
+*	2.ä½¿ç”¨ç±»çš„ç±»å‹æˆå‘˜ï¼Œç”¨typenameæ¥è¡¨ç¤ºè¿™æ˜¯ä¸€ä¸ªç±»å‹
+*	ç”¨æ³•1  ::å¯ä»¥è¡¨ç¤ºç±»æˆå‘˜ä½œç”¨åŸŸ
+*	ç”¨æ³•2  ::è¿˜å¯ä»¥è¡¨ç¤ºè®¿é—®â€œæ¨¡æ¿ç±»çš„"ç±»å‹"æˆå‘˜â€ã€‚ï¼ˆTç±»å‹çš„æˆå‘˜å˜é‡ï¼‰
+*		sä¸Šä¸€èŠ‚çš„typedef T* myIterator;//å°±æ˜¯æ¨¡æ¿ç±»çš„ç±»å‹æˆå‘˜
+*				å‡½æ•°è¿”å›å€¼
+*		aåœ¨ç±»å¤–ï¼š
 *		typename myVector<T>::myIterator   myVector<T>::myend()
-*		typename µÄÓÃ´¦¾ÍÊÇÏÔÊ½¸æËß±àÒëÆ÷myVector<T>::myIteratorÊÇÒ»¸öÀàĞÍ
+*		typename çš„ç”¨å¤„å°±æ˜¯æ˜¾å¼å‘Šè¯‰ç¼–è¯‘å™¨myVector<T>::myIteratoræ˜¯ä¸€ä¸ªç±»å‹ï¼ˆç”¨æ³•2ï¼Œè€Œä¸æ˜¯è¡¨ç¤ºé™æ€æˆå‘˜å˜é‡ï¼Œå¦åˆ™ç¼–è¯‘å™¨å°±åŒºåˆ†ä¸äº†::åé¢æ¥çš„æ˜¯ç±»å‹æˆå‘˜è¿˜æ˜¯é™æ€æˆå‘˜ï¼‰
 *
 		typename T::size_type GetLength(const T&c)
-		ÖĞµÄT::size_typeÒ²ÊÇÀàĞÍ£¬ËùÒÔÇ°ÃæĞèÒª¼ÓÉÏtypename
+		ä¸­çš„T::size_typeä¹Ÿæ˜¯ç±»å‹ï¼Œç±»ä¼¼äºunsigned intï¼Œæ‰€ä»¥å‰é¢éœ€è¦åŠ ä¸Štypename
 *
 *(2)
 *
