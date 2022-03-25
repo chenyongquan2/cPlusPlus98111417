@@ -9,14 +9,14 @@ int myFunction(int a,int b)
 {
 	return  a + b;
 }
-//°Ñº¯ÊıÖ¸Õë×÷ÎªÁíÍâÒ»¸öº¯ÊıµÄ²ÎÊı´«µİ£¿£¿
+//æŠŠå‡½æ•°æŒ‡é’ˆä½œä¸ºå¦å¤–ä¸€ä¸ªå‡½æ•°çš„å‚æ•°ä¼ é€’ï¼Ÿï¼Ÿ
 //
-//¶¨ÒåÒ»¸öº¯ÊıÖ¸ÕëÀàĞÍ
-typedef int(*FunType)(int, int);
-//¶¨ÒåÒ»¸öº¯Êı½ÓÊÕº¯ÊıµÄÖ¸Õë
+//å®šä¹‰ä¸€ä¸ªå‡½æ•°æŒ‡é’ˆç±»å‹
+typedef int(*FunType)(int, int);//å‡½æ•°æŒ‡é’ˆç±»å‹ã€‚ 
+//å®šä¹‰ä¸€ä¸ªå‡½æ•°æ¥æ”¶å‡½æ•°çš„æŒ‡é’ˆ
 void TestFunction(int i,int j,FunType myfun)
 {
-	//ÕâÀï¿ÉÒÔÍ¨¹ıº¯ÊıÖ¸Õëµ÷ÓÃº¯Êı
+	//è¿™é‡Œå¯ä»¥é€šè¿‡å‡½æ•°æŒ‡é’ˆè°ƒç”¨å‡½æ•°
 	int result = myfun(i, j);
 	cout << result << endl;
 }
@@ -24,15 +24,15 @@ void TestFunction(int i,int j,FunType myfun)
 
 int main(void)
 {
-	TestFunction(1, 2, myFunction);//º¯ÊıÃû×Ö¾ÍÏàµ±ÓÚÒ»¸öº¯ÊıµØÖ·
-	TestFunction(1, 2, &myFunction);//ok¡£È¡µØÖ·Ò²¿ÉÒÔµ÷ÓÃ³É¹¦
+	TestFunction(1, 2, myFunction);//å‡½æ•°åå­—å°±ç›¸å½“äºä¸€ä¸ªå‡½æ•°åœ°å€
+	TestFunction(1, 2, &myFunction);//okã€‚å–åœ°å€ä¹Ÿå¯ä»¥è°ƒç”¨æˆåŠŸ
 
 	system("pause");
 	return 0;
 }
 
 /*
-*(1)º¯ÊıÖ¸Õë×öÆäËûº¯ÊıµÄ²ÎÊı
+*(1)å‡½æ•°æŒ‡é’ˆåšå…¶ä»–å‡½æ•°çš„å‚æ•°
 *
 *
 *(2)
