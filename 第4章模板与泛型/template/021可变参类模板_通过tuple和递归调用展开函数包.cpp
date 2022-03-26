@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//mycountÓÃÓÚÍ³¼Æ£¬myMaxCount±íÊ¾²ÎÊıÊıÁ¿
+//mycountç”¨äºç»Ÿè®¡ï¼ŒmyMaxCountè¡¨ç¤ºå‚æ•°æ•°é‡
 template<int mycount,int myMaxCount,typename ...T>
 class myclass
 {
@@ -21,7 +21,7 @@ public:
 };
 
 
-//ÌØ»¯°æ±¾ÓÃÓÚ½áÊøµ÷ÓÃ
+//ç‰¹åŒ–ç‰ˆæœ¬ç”¨äºç»“æŸè°ƒç”¨
 template<int myMaxCount,typename ...T>
 class myclass<myMaxCount,myMaxCount,T...>
 {
@@ -33,15 +33,63 @@ public:
 };
 
 template<typename ...T>
-void myFunction(const tuple<T...>&t)//¿É±ä²Îº¯ÊıÄ£°å
+void myFunction(const tuple<T...>&t)//å¯å˜å‚å‡½æ•°æ¨¡æ¿
 {
 	myclass<0, sizeof...(T), T...>::myFunction02(t);
 }
 
+///////////////////////////////////////
+namespace mytest
+{
+	
+	void test12()
+	{
+		tuple<float, int, double> t1(12.44f, 10, 20.9);
+		cout << get<0>(t1) << endl;
+		cout << get<1>(t1) << endl;
+		cout << get<2>(t1) << endl;
+	}
+
+	template<int curCnt,int maxCount,typename ...T>
+	class MyTravleTuple
+	{
+	public:
+		static void myFunc(const tuple<T...>&t)
+		{
+			cout << "value=" << get<curCnt>(t) << endl;
+			//é€’å½’è°ƒç”¨
+			MyTravleTuple<curCnt + 1, maxCount, T...>::myFunc(t);
+		}
+	};
+
+	//ä¸€ä¸ªç‰¹åŒ–ç‰ˆæœ¬ç”¨äºæ§åˆ¶é€’å½’ç»“æŸ
+	template<int maxCount,typename... T>
+	class MyTravleTuple<maxCount, maxCount,T...>
+	{
+	public:
+		static void myFunc(const tuple<T...>&t)
+		{
+			cout << "ç»“æŸ" << endl;
+		}
+	};
+
+	template<typename... T>
+	void travleTuple(const tuple<T...>&t)
+	{
+		MyTravleTuple<0, sizeof...(T), T...>::myFunc(t);
+	}
+
+	void test13()
+	{
+		tuple<int, double, float> myTuple(100, 90.3434, 100.43434f);
+		travleTuple(myTuple);
+	}
+};
+///////////////////////////////////////
 
 int main(void)
 {
-	//Ôª×éÊ¾Òâ
+	//å…ƒç»„ç¤ºæ„
 	tuple<float, int, int>mytuple(12.34f, 100, 1);
 	cout << get<0>(mytuple) << endl;
 	cout << get<1>(mytuple) << endl;
@@ -53,9 +101,9 @@ int main(void)
 }
 
 /*
-*(1)Í¨¹ıtupleºÍµİ¹éµ÷ÓÃÕ¹¿ªº¯Êı°ü--ĞèÒªĞ©ÀàµÄÌØ»¯°æ±¾£¬ÓĞÒ»¶¨µÄÄÑ¶È¡£
-*ÓĞÒ»¸ö´Ó0¿ªÊ¼µÄ¼ÆÊıÆ÷£¬Ã¿´Î´¦ÀíÒ»¸ö²ÎÊı£¬¼ÆÊıÆ÷+1£¬Ò»Ö±µ½ËùÓĞ²ÎÊı´¦ÀíÍê±Ï¡£
-*×îºóÊ¹ÓÃÊ¹ÓÃÒ»¸öÄ£°åÆ«ÌØ»¯£¬×÷Îªµİ¹éµ÷ÓÃ½áÊø¡£
+*(1)é€šè¿‡tupleå’Œé€’å½’è°ƒç”¨å±•å¼€å‡½æ•°åŒ…--éœ€è¦äº›ç±»çš„ç‰¹åŒ–ç‰ˆæœ¬ï¼Œæœ‰ä¸€å®šçš„éš¾åº¦ã€‚
+*æœ‰ä¸€ä¸ªä»0å¼€å§‹çš„è®¡æ•°å™¨ï¼Œæ¯æ¬¡å¤„ç†ä¸€ä¸ªå‚æ•°ï¼Œè®¡æ•°å™¨+1ï¼Œä¸€ç›´åˆ°æ‰€æœ‰å‚æ•°å¤„ç†å®Œæ¯•ã€‚
+*æœ€åä½¿ç”¨ä½¿ç”¨ä¸€ä¸ªæ¨¡æ¿åç‰¹åŒ–ï¼Œä½œä¸ºé€’å½’è°ƒç”¨ç»“æŸã€‚
 *
 *(2)
 12.34
@@ -65,8 +113,8 @@ value=100
 value=1
 
 *
-*(3)×Ü½á
-*	»ñÈ¡²ÎÊı°üÀïÃæµÄ²ÎÊı·½Ê½ÓĞºÜ¶àÖÖ£¬µ«ÊÇÒ»°ãÀ´½²¶¼Àë²»¿ªµİ¹éÕâÖÖÊÖ¶Î¡£
+*(3)æ€»ç»“
+*	è·å–å‚æ•°åŒ…é‡Œé¢çš„å‚æ•°æ–¹å¼æœ‰å¾ˆå¤šç§ï¼Œä½†æ˜¯ä¸€èˆ¬æ¥è®²éƒ½ç¦»ä¸å¼€é€’å½’è¿™ç§æ‰‹æ®µã€‚
 *	
 *
 *
