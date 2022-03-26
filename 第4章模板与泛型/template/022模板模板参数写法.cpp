@@ -5,23 +5,23 @@
 #include <list>
 
 using namespace std;
-//´ÓÀàÄ£°åÒıÈë
-//template<typename T,typename U>//t u½ĞÄ£°å²ÎÊı£¬¸ü¾ßÌå½ĞÀàĞÍÄ£°å²ÎÊı£¨Ç°ÃæÓĞtypename£©
+//ä»ç±»æ¨¡æ¿å¼•å…¥
+//template<typename T,typename U>//t uå«æ¨¡æ¿å‚æ•°ï¼Œæ›´å…·ä½“å«ç±»å‹æ¨¡æ¿å‚æ•°ï¼ˆå‰é¢æœ‰typenameï¼‰
 template<
-	typename T,//ÀàĞÍÄ£°å²ÎÊı
-	template<class>class Container	//ÕâÊÇÒ»¸öÄ£°åÄ£°å²ÎÊı---ÔõÃ´Àí½âÕâÒ»ĞĞ£¿£¿
-	//ÁíÍâÒ»ÖÖµÈ¿¿Ğ´·¨
-	//template<typename W>typename Container02//WºÁÎŞÓÃ´¦£¬ÊÇÕ¼Î»ÖÃÓÃµÄ
+	typename T,//ç±»å‹æ¨¡æ¿å‚æ•°
+	template<class>class Container	//è¿™æ˜¯ä¸€ä¸ªæ¨¡æ¿æ¨¡æ¿å‚æ•°---æ€ä¹ˆç†è§£è¿™ä¸€è¡Œï¼Ÿï¼Ÿ
+	//å¦å¤–ä¸€ç§ç­‰é å†™æ³•
+	//template<typename W>typename Container02//Wæ¯«æ— ç”¨å¤„ï¼Œæ˜¯å ä½ç½®ç”¨çš„
 	
 >
 class  myClass
 {
 public:
 	T m_i;
-	Container<T>myc;	//container×÷ÎªÒ»¸öÀàÄ£°åÀ´Ê¹ÓÃ£¬ÀàËÆÓÚvector<int>myc;ËùÒÔËûÊÇÒ»¸öÀàÄ£°å
-	//ÒªÃ÷°×£¬Òª°ÑContainerµ±×öÒ»¸öÀàÄ£°åÀ´Ê¹ÓÃ£¬¾Í±ØĞëÎª¡°Ä£°åÄ£°å²ÎÊı¡±
+	Container<T>myc;	//containerä½œä¸ºä¸€ä¸ªç±»æ¨¡æ¿æ¥ä½¿ç”¨ï¼Œç±»ä¼¼äºvector<int>myc;æ‰€ä»¥ä»–æ˜¯ä¸€ä¸ªç±»æ¨¡æ¿
+	//è¦æ˜ç™½ï¼Œè¦æŠŠContainerå½“åšä¸€ä¸ªç±»æ¨¡æ¿æ¥ä½¿ç”¨ï¼Œå°±å¿…é¡»ä¸ºâ€œæ¨¡æ¿æ¨¡æ¿å‚æ•°â€
 
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	myClass()
 	{
 		for (int i=0;i<10;i++)
@@ -31,19 +31,19 @@ public:
 	}
 };
 
-//¸øÈİÒ×¶¨ÒåÒ»¸ö±ğÃû
+//ç»™å®¹æ˜“å®šä¹‰ä¸€ä¸ªåˆ«å
 template<typename T>
-using myVec = vector<T, allocator<T>>;//ÊÖ¹¤Ö¸¶¨·ÖÅäÆ÷
+using myVec = vector<T, allocator<T>>;//æ‰‹å·¥æŒ‡å®šåˆ†é…å™¨
 
 template<typename T>
-using myList = list<T, allocator<T>>;//ÊÖ¹¤Ö¸¶¨·ÖÅäÆ÷
+using myList = list<T, allocator<T>>;//æ‰‹å·¥æŒ‡å®šåˆ†é…å™¨
 
 
 int main(void)
 {
-
-	myClass<int, myVec>myvectorobj;//±¾ÒâÊÇÏòÈİÒ×ÖĞÈûÈëÔªËØ£¬ÔªËØÎªint
-	//vector£¬µÚÒ»¸ö²ÎÊıÊÇÔªËØ,µÚ¶ş¸ö²ÎÊıÊÇ·ÖÅäÆ÷allocator
+	//myClass<int, vector>myvectorobj;//è¿™ç§å†™æ³•ä¼šæŠ¥é”™...å› ä¸ºç¼–è¯‘å™¨æ— æ³•ç»™vector<int,allocator>åˆ†é…å…ƒç´ ,å¿…é¡»å¾—æ‰‹åŠ¨ç»™vectoræŒ‡å®šåˆ†é…å™¨
+	myClass<int, myVec>myvectorobj;//æœ¬æ„æ˜¯å‘å®¹æ˜“ä¸­å¡å…¥å…ƒç´ ï¼Œå…ƒç´ ä¸ºint
+	//vectorï¼Œç¬¬ä¸€ä¸ªå‚æ•°æ˜¯å…ƒç´ ,ç¬¬äºŒä¸ªå‚æ•°æ˜¯åˆ†é…å™¨allocator
 
 	
 	system("pause");
@@ -51,10 +51,10 @@ int main(void)
 }
 
 /*
-*(1)Ä£°åÄ£°å²ÎÊı
-*´ÓÀàÄ£°åÒıÈë
-*ÀàĞÍÄ£°å²ÎÊı
-*Ä£°åÄ£°å²ÎÊı£ºÊ×ÏÈÊÇ¸öÄ£°å²ÎÊı£¬Õâ¸öÄ£°å²ÎÊı±¾ÉíÓÖÊÇ¸öÄ£°å¡£
+*(1)æ¨¡æ¿æ¨¡æ¿å‚æ•°
+*ä»ç±»æ¨¡æ¿å¼•å…¥
+*ç±»å‹æ¨¡æ¿å‚æ•°
+*æ¨¡æ¿æ¨¡æ¿å‚æ•°ï¼šé¦–å…ˆæ˜¯ä¸ªæ¨¡æ¿å‚æ•°ï¼Œè¿™ä¸ªæ¨¡æ¿å‚æ•°æœ¬èº«åˆæ˜¯ä¸ªæ¨¡æ¿ã€‚
 *(2)
 *
 *(3)
