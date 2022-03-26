@@ -11,72 +11,72 @@ class TC
 public:
 	void FunctionTest()
 	{
-		cout << "µ÷ÓÃ·º»¯°æ±¾º¯Êı" << endl;
+		cout << "è°ƒç”¨æ³›åŒ–ç‰ˆæœ¬å‡½æ•°" << endl;
 	}
 };
 
-//·¶Î§ÌØ»¯°æ±¾  const
+//èŒƒå›´ç‰¹åŒ–ç‰ˆæœ¬  const
 template<typename T>
 class TC<const T>
 {
 public:
 	void FunctionTest()
 	{
-		cout << "Const TÌØ»¯°æ±¾" << endl;
+		cout << "Const Tç‰¹åŒ–ç‰ˆæœ¬" << endl;
 	}
 };
 
-//·¶Î§ÌØ»¯°æ±¾  T*
+//èŒƒå›´ç‰¹åŒ–ç‰ˆæœ¬  T*
 template<typename T>
 class TC<const T*>
 {
 public:
 	void FunctionTest()
 	{
-		cout << "T*ÌØ»¯°æ±¾" << endl;
+		cout << "T*ç‰¹åŒ–ç‰ˆæœ¬" << endl;
 	}
 };
 
 
-//·¶Î§ÌØ»¯°æ±¾--×óÖµÒıÓÃ
+//èŒƒå›´ç‰¹åŒ–ç‰ˆæœ¬--å·¦å€¼å¼•ç”¨
 template<typename T>
 class TC<const T&>
 {
 public:
 	void FunctionTest()
 	{
-		cout << "T&ÌØ»¯°æ±¾" << endl;
+		cout << "T&ç‰¹åŒ–ç‰ˆæœ¬" << endl;
 	}
 };
 
-//·¶Î§ÌØ»¯°æ±¾--ÓÒÖµÒıÓÃ
+//èŒƒå›´ç‰¹åŒ–ç‰ˆæœ¬--å³å€¼å¼•ç”¨
 template<typename T>
 class TC<const T&&>
 {
 public:
 	void FunctionTest()
 	{
-		cout << "T&&ÌØ»¯°æ±¾" << endl;
+		cout << "T&&ç‰¹åŒ–ç‰ˆæœ¬" << endl;
 	}
 };
 
 int main(void)
 {
 	TC<double>td;
-	td.FunctionTest();//µ÷ÓÃ·º»¯°æ±¾
+	td.FunctionTest();//è°ƒç”¨æ³›åŒ–ç‰ˆæœ¬
 
 	TC<double*>tdp;
-	tdp.FunctionTest();//µ÷ÓÃ·º»¯°æ±¾
+	tdp.FunctionTest();//è°ƒç”¨æ³›åŒ–ç‰ˆæœ¬
 
 	TC<const double> tcc;
-	tcc.FunctionTest();//µ÷ÓÃconstÌØ»¯°æ±¾
+	tcc.FunctionTest();//è°ƒç”¨constç‰¹åŒ–ç‰ˆæœ¬
 	
 	TC<int&>ti;
-	ti.FunctionTest();//µ÷ÓÃ·º»¯°æ±¾
+	ti.FunctionTest();//è°ƒç”¨æ³›åŒ–ç‰ˆæœ¬
 
 
 	TC<int&&>tii;
-	tii.FunctionTest();//µ÷ÓÃ·º»¯°æ±¾
+	tii.FunctionTest();//è°ƒç”¨æ³›åŒ–ç‰ˆæœ¬
 	
 	system("pause");
 	return 0;
@@ -84,14 +84,15 @@ int main(void)
 
 /*
 *(1)
-*Ä£°å²ÎÊı·¶Î§ÉÏ  int --ÌØ»¯Ò»¸öconst int  ´ó--Ğ¡
-*		´ÓTËõĞ¡ÎªT*
-*		´ÓTËõĞ¡ÎªT& T&&
-*		ÕâÖÖ¶¹½Ç·¶Î§ËõĞ¡
-*(2)¾Ö²¿ÌØ»¯£¬ÌØ»¯Íê±Ï»¹ÊÇ¸öÀàÄ£°å£¬ÒòÎªÀïÃæ°üº¬ÀàĞÍ²ÎÊıT¡£
-*È«ÌØ»¯Íê±ÏºóÀïÃæ²»°üº¬ÀàĞÍ²ÎÊıT
-* SunriseÓÚ¶«±±µçÁ¦´óÑ§µÚ¶ş½ÌÑ§Â¥1121ÊµÑéÊÒ
-* 2019Äê11ÔÂ25ÈÕ15:50:32
+*æ¨¡æ¿å‚æ•°èŒƒå›´ä¸Šï¼Œç±»å‹åŒ…å«çš„èŒƒå›´ç¼©å°
+		int --ç‰¹åŒ–ä¸€ä¸ªconst int  å¤§--å°
+*		ä»Tç¼©å°ä¸ºT*
+*		ä»Tç¼©å°ä¸ºT& T&&
+*		è¿™ç§è±†è§’èŒƒå›´ç¼©å°
+*(2)å±€éƒ¨ç‰¹åŒ–ï¼Œ"ç‰¹åŒ–å®Œæ¯•è¿˜æ˜¯ä¸ªç±»æ¨¡æ¿ï¼Œå› ä¸ºé‡Œé¢åŒ…å«ç±»å‹å‚æ•°T"ã€‚
+*"å…¨ç‰¹åŒ–"å®Œæ¯•åé‡Œé¢ä¸åŒ…å«ç±»å‹å‚æ•°T
+* Sunriseäºä¸œåŒ—ç”µåŠ›å¤§å­¦ç¬¬äºŒæ•™å­¦æ¥¼1121å®éªŒå®¤
+* 2019å¹´11æœˆ25æ—¥15:50:32
 *
 *(3)
 *
