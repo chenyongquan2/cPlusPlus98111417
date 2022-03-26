@@ -6,28 +6,28 @@
 using namespace std;
 
 template<typename T, typename U,typename W>
-class TC//·º»¯µÄtcÀàÄ£°å
+class TC//æ³›åŒ–çš„tcç±»æ¨¡æ¿
 {
 public:
 	void FunctionTest01()
 	{
-		cout << "·º»¯°æ±¾" << endl;
+		cout << "æ³›åŒ–ç‰ˆæœ¬" << endl;
 	}
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	TC()
 	{
-		cout << "·º»¯°æ±¾¹¹Ôìº¯Êı" << endl;
+		cout << "æ³›åŒ–ç‰ˆæœ¬æ„é€ å‡½æ•°" << endl;
 	}
 };
 
-//Ä£°å²ÎÊıÊıÁ¿--Æ«ÌØ»¯£¬2¸ö²ÎÊıÌØ»¯
-template< typename U>//T W°ó¶¨µ½¾ßÌåµÄÀàĞÍ
+//æ¨¡æ¿å‚æ•°æ•°é‡--åç‰¹åŒ–ï¼Œ2ä¸ªå‚æ•°ç‰¹åŒ–
+template< typename U>//T Wç»‘å®šåˆ°å…·ä½“çš„ç±»å‹
 class  TC<int,U,int>
 {
 public:
 	void FunctionTest01()
 	{
-		cout << "ÊıÁ¿--Æ«ÌØ»¯°æ±¾»¯°æ±¾" << endl;
+		cout << "æ•°é‡--åç‰¹åŒ–ç‰ˆæœ¬åŒ–ç‰ˆæœ¬" << endl;
 	}
 };
 
@@ -38,9 +38,9 @@ int main(void)
 {
 	
 	TC<double, double, double> tcddd;
-	tcddd.FunctionTest01();//µ÷ÓÃ·º»¯°æ±¾
+	tcddd.FunctionTest01();//è°ƒç”¨æ³›åŒ–ç‰ˆæœ¬
 	TC<int, double, int >tcidi;
-	tcidi.FunctionTest01();//µ÷ÓÃÊıÁ¿--Æ«ÌØ»¯°æ±¾
+	tcidi.FunctionTest01();//è°ƒç”¨æ•°é‡--åç‰¹åŒ–ç‰ˆæœ¬
 
 
 	
@@ -49,8 +49,9 @@ int main(void)
 }
 
 /*
-*(1)ÀàĞÍÄ£°åÆ«ÌØ»¯--Ò²½Ğ¾Ö²¿ÌØ»¯
-*	1.Ä£°å²ÎÊıÊıÁ¿ÉÏ
+*åç‰¹åŒ–ä»ä¸¤æ–¹é¢è¯´èµ·ï¼Œä¸€ä¸ªæ˜¯ä» æ¨¡æ¿å‚æ•°æ•°é‡ä¸Šï¼Œä¸€ä¸ªæ˜¯ä»æ¨¡æ¿å‚æ•°èŒƒå›´ä¸Š
+*(1)ç±»å‹æ¨¡æ¿åç‰¹åŒ–--ä¹Ÿå«å±€éƒ¨ç‰¹åŒ–
+*	1.æ¨¡æ¿å‚æ•°æ•°é‡ä¸Š
 *
 *(3)
 *
