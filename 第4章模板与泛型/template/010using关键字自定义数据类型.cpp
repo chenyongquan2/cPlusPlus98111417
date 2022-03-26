@@ -5,38 +5,37 @@
 #include <map>
 
 using namespace std;
-//¸øÒÑ¾­ÖªµÀµÄÊı¾İÀàĞÍÆğ¸ö±ğÃû
-typedef unsigned int uint;//¸øÎŞ·ûºÅÕûĞÎÆğÒ»¸ö±ğÃûuint
+//ç»™å·²ç»çŸ¥é“çš„æ•°æ®ç±»å‹èµ·ä¸ªåˆ«å
+typedef unsigned int uint;//ç»™æ— ç¬¦å·æ•´å½¢èµ·ä¸€ä¸ªåˆ«åuint
 using u_int = unsigned int;
 
 typedef std::map<std::string, int> myMap;
 using myMap006 = std::map<std::string, int>;
 
-//Èç¹ûÔÚ¿ª·¢ÖĞ¶¨ÒåµÄÀàĞÍ²»¹Ì¶¨£¬ÈçmapÈİÆ÷ÖĞµÄkey¹Ì¶¨£¬µ«ÊÇÖµvalue²»¹Ì¶¨£¬Ê¹ÓÃtypedefºÜÄÑÍê³É¡£
-//c++98ÖĞÊ¹ÓÃÀàÄ£°åÀ´ÊµÏÖ
+//å¦‚æœåœ¨å¼€å‘ä¸­å®šä¹‰çš„ç±»å‹ä¸å›ºå®šï¼Œå¦‚mapå®¹å™¨ä¸­çš„keyå›ºå®šï¼Œä½†æ˜¯å€¼valueä¸å›ºå®šï¼Œä½¿ç”¨typedefå¾ˆéš¾å®Œæˆã€‚
+//c++98ä¸­ä½¿ç”¨ç±»æ¨¡æ¿æ¥å®ç°
 template <typename T>
 class map_s
 {
 public:
-	typedef  std::map<std::string, T > mymap02;//×Ô¶¨ÒåÀàĞÍ£¬¼ükeyÊÇstring£¬ÖµÊÇTÀàĞÍ
-};
+	typedef  std::map<std::string, T > mymap02;//è‡ªå®šä¹‰ç±»å‹ï¼Œé”®keyæ˜¯stringï¼Œå€¼æ˜¯Tç±»å‹
+};//ä¸å¾—ä¸å†™ä¸€ä¸ªç±»æ¥å®ç°ï¼Œå®ç°æ‰‹æ®µçŒ¥çã€‚ã€‚ã€‚
 
-//c++11ÊµÏÖÉÏÊö¹¦ÄÜ
+//c++11å®ç°ä¸Šè¿°åŠŸèƒ½
 template<typename T>
-using str_map_t = std::map<string, T>;//±ğÃûÔÚÇ°Ãæ¡£
-/*ÓÃ·¨£ºÍ¨¹ıusing¹Ø¼ü×Ö¸øÒ»¸öÀàĞÍÄ£°åÆğÃû×Ö£¬»òÕßÆğ±ğÃû¡£
- *ÓÃ·¨2£º½«¸¸ÀàµÄÍ¬Ãûº¯ÊıÔÚ×ÓÀàÖĞ±©Â¶³öÀ´¡£
- *ÓÃ·¨3£º¶¨ÒåÀàĞÍ£¬Èçº¯ÊıÀàĞÍ 
+using str_map_t = std::map<string, T>;//åˆ«ååœ¨å‰é¢ã€‚
+/*ç”¨æ³•ï¼šé€šè¿‡usingå…³é”®å­—ç»™ä¸€ä¸ªç±»å‹æ¨¡æ¿èµ·åå­—ï¼Œæˆ–è€…èµ·åˆ«åã€‚
+ *ç”¨æ³•2ï¼šå°†çˆ¶ç±»çš„åŒåå‡½æ•°åœ¨å­ç±»ä¸­æš´éœ²å‡ºæ¥ã€‚
+ *ç”¨æ³•3ï¼šå®šä¹‰ç±»å‹ï¼Œå¦‚å‡½æ•°ç±»å‹ 
  */
-//using¶¨Òåº¯ÊıÀàĞÍ
+
+//usingå®šä¹‰å‡½æ•°æŒ‡é’ˆ
 using myFunction = void(*)(int, int);
-typedef void(*myFunction02)(int, int);//µÈ¼Û
+typedef void(*myFunction02)(int, int);//ç­‰ä»·
 
-
-
-//usingÁ·Ï°
+//å‡½æ•°æŒ‡é’ˆç±»å‹æ¨¡æ¿
 template<typename T>
-using myFunction_m = int(*)(T, T);//¶¨Òå"ÀàĞÍÄ£°å"£¬¼È²»ÊÇÀàÄ£°å£¬Ò²²»ÊÇº¯ÊıÄ£°å£¬Ïàµ±ÓÚÄ£°åÆğµÄ±ğÃû
+using myFunction_m = int(*)(T, T);//æ€»ç»“ï¼šå®šä¹‰"ç±»å‹æ¨¡æ¿"ï¼Œæ—¢ä¸æ˜¯ç±»æ¨¡æ¿ï¼Œä¹Ÿä¸æ˜¯å‡½æ•°æ¨¡æ¿ï¼Œç›¸å½“äºæ¨¡æ¿èµ·çš„åˆ«å
 
 int testFunction(int a,int b)
 {
@@ -52,21 +51,21 @@ int main(void)
 	map1.insert({ "aaaa", 1 });
 	map1.insert({ "bbbb",2 });
 
-	//key¹Ì¶¨£¬valueÖµ²»È·¶¨
+	//keyå›ºå®šï¼Œvalueå€¼ä¸ç¡®å®š
 	map_s<int>::mymap02 map001;
 	map001.insert({ "aaaaa",1 });
 	map_s<string>::mymap02 map002;
 	map002.insert({ "bbbbb","2" });
 
 
-	//c++11ÊµÏÖÉÏÊö¹¦ÄÜ
+	//c++11å®ç°ä¸Šè¿°åŠŸèƒ½
 	str_map_t<int> map003;
 	map003.insert({ "dfsdf",3 });
 
 
-	//usingÁ·Ï°
-	myFunction_m<int> pointFunc;//¸ù¾İº¯ÊıÖ¸ÕëÀàĞÍ¶¨Òåº¯ÊıÖ¸Õë
-	pointFunc = testFunction;//°Ñº¯ÊıµØÖ·¸³Öµ¸øº¯ÊıÖ¸Õë±äÁ¿
+	//usingç»ƒä¹ 
+	myFunction_m<int> pointFunc;//æ ¹æ®å‡½æ•°æŒ‡é’ˆç±»å‹å®šä¹‰å‡½æ•°æŒ‡é’ˆ
+	pointFunc = testFunction;//æŠŠå‡½æ•°åœ°å€èµ‹å€¼ç»™å‡½æ•°æŒ‡é’ˆå˜é‡
 	//pointFunc = &testFunction;//ok
 	cout << pointFunc(23, 45) << endl;
 
@@ -75,16 +74,16 @@ int main(void)
 }
 
 /*
-*(1)using ¶¨ÒåÄ£°å±ğÃû
-*	1.typedefÒ»°ãÓÃÀ´¶¨ÒåÀàĞÍ±ğÃû
-	2.typedef  std::map<std::string, T > mymap02;//×Ô¶¨ÒåÀàĞÍ£¬¼ükeyÊÇstring£¬ÖµÊÇTÀàĞÍ
-*	3.usingÓÃÓÚ¶¨ÒåÀàĞÍ»òÕßÀàĞÍÄ£°åµÄÊÇÊ±ºò£¬°üº¬ÁËtypedefµÄËùÓĞ¹¦ÄÜ¡£
-		¶¨Òå»ù±¾ÀàĞÍ±ğÃû
-		¶¨ÒåÀàĞÍÄ£°å
-		¶¨Òåº¯ÊıÖ¸Õë
+*(1)using å®šä¹‰æ¨¡æ¿åˆ«å
+*	1.typedefä¸€èˆ¬ç”¨æ¥å®šä¹‰ç±»å‹åˆ«å
+	2.typedef  std::map<std::string, T > mymap02;//è‡ªå®šä¹‰ç±»å‹ï¼Œé”®keyæ˜¯stringï¼Œå€¼æ˜¯Tç±»å‹
+*	3.usingç”¨äºå®šä¹‰ç±»å‹æˆ–è€…ç±»å‹æ¨¡æ¿çš„æ˜¯æ—¶å€™ï¼ŒåŒ…å«äº†typedefçš„æ‰€æœ‰åŠŸèƒ½ã€‚
+		å®šä¹‰åŸºæœ¬ç±»å‹åˆ«å
+		å®šä¹‰ç±»å‹æ¨¡æ¿
+		å®šä¹‰å‡½æ•°æŒ‡é’ˆ
 *
-*	2019Äê11ÔÂ25ÈÕ10:28:07
-*	 SunriseÓÚ¶«±±µçÁ¦´óÑ§µÚ¶ş½ÌÑ§Â¥1121ÊµÑéÊÒ
+*	2019å¹´11æœˆ25æ—¥10:28:07
+*	 Sunriseäºä¸œåŒ—ç”µåŠ›å¤§å­¦ç¬¬äºŒæ•™å­¦æ¥¼1121å®éªŒå®¤
 
 *
 *
