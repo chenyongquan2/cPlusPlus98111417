@@ -45,6 +45,14 @@ public:
 	{
 		return  pHead;//收到原始地址，返回即可
 	}
+	
+	//重载的多个版本的new
+	void *operator new(size_t size, int v1, int v2)
+	{
+		cout << "调用了重载的双v的new" << endl;
+		void *p = malloc(size);
+		return p;
+	}
 
 public:
 	int m_a;
@@ -73,6 +81,8 @@ int main(void)
 	myA02->~A();
 	delete[](void*)myA02;
 
+	////
+	A* p1 = new (120, 343)A();
 
 	system("pause");
 	return 0;
