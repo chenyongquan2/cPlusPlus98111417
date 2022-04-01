@@ -14,36 +14,36 @@ class embeddedPointer
 {
 public:
 	int m_i;
-	int m_j;
+	int m_j;//这两个成员变量是为了使得该类的大小不少于4字节。
 public:
-	struct obj
+	struct obj//结构
 	{
-		struct obj*next;//ָ�����ṹ��ָ�룬next����һ��Ƕ��ʽָ��
-	};//д��class�ڲ����ⲿ���ɼ���ֻ�������ڲ�ʹ��
+		struct obj*next;//指向本身结构的指针，这个next就是一个嵌入式指针
+	};//写入class内部，外部不可见，只能在类内部使用(其实和在类外定义意义是一样的，只不过在类外访问不到了而已。)
 };
 
 
 
-//�����ڴ�ش���ĸĽ�
-//������Ϊ�ڴ�ؼ�����дһ����,Ӧ�ñ�����಻����4���ֽ�
+//二：内存池代码的改进
+//单独的为内存池技术来写一个类,应用本类的类不少于4个字节
 
 
-//ר�ŵ��ڴ����
-class myallocator //���뱣֤Ӧ�ñ�������sizeof()������4�ֽڣ������������߱�����
+//专门的内存池类
+class myallocator //必须保证应用本类的类的sizeof()不少于4字节；否则会崩溃或者报错；
 {
 public:
-	//�����ڴ�ӿ�
+	//分配内存接口
 	void *allocate(size_t size)
 	{
 		obj *tmplink;
 		if (m_FreePosi == nullptr)
 		{
-			//Ϊ�գ���Ҫ�����ڴ棬Ҫ����һ����ڴ�
-			size_t realsize = m_sTrunkCout * size; //����m_sTrunkCout��ô�౶���ڴ�
+			//为空，我要申请内存，要申请一大块内存
+			size_t realsize = m_sTrunkCout * size; //申请m_sTrunkCout这么多倍的内存
 			m_FreePosi = (obj *)malloc(realsize);
 			tmplink = m_FreePosi;
 
-			//�ѷ����������һ����ڴ棨5С�飩���˴�����������������ʹ��
+			//把分配出来的这一大块内存（5小块），彼此用链起来，供后续使用
 			for (int i = 0; i < m_sTrunkCout - 1; ++i) //0--3
 			{
 				tmplink->next = (obj *)((char *)tmplink + size);
@@ -55,19 +55,19 @@ public:
 		m_FreePosi = m_FreePosi->next;
 		return tmplink;
 	}
-	//�ͷ��ڴ�ӿ�
+	//释放内存接口
 	void deallocate(void *phead)
 	{
 		((obj *)phead)->next = m_FreePosi;
 		m_FreePosi = (obj *)phead;
 	}
 private:
-	//д�����ڵĽṹ������ֻ����������ʹ��
+	//写在类内的结构，这样只让其在类内使用
 	struct obj
 	{
-		struct obj *next; //���next���Ǹ�Ƕ��ʽָ��
+		struct obj *next; //这个next就是个嵌入式指针
 	};
-	int m_sTrunkCout = 5;//һ�η���5���ĸ����ڴ���Ϊ�ڴ���ӵĴ�С
+	int m_sTrunkCout = 5;//一次分配5倍的该类内存作为内存池子的大小
 	obj* m_FreePosi = nullptr;
 };
 
@@ -93,7 +93,7 @@ class A
 
 public:
 	int m_i;
-	int m_j; //Ϊ�˱�֤sizeof(A)�չ�4�ֽڣ���ʦ��ʾʱ����������int��Ա������	
+	int m_j; //为了保证sizeof(A)凑够4字节，老师演示时定义了两个int成员变量；	
 };
 IMPLEMENT_POOL_ALLOC(A)
 
@@ -121,16 +121,16 @@ void func()
 
 int main(void)
 {
-	//Ƕ��ʽָ���ʹ��
+	//嵌入式指针的使用
 	embeddedPointer mytest;
 	cout << sizeof(mytest) << endl;//8
-	embeddedPointer::obj*ptem;//����һ��Ƕ��ʽָ��
-	ptem = (embeddedPointer::obj*)&mytest;//�Ѷ����׵�ַ��ֵ��ptemָ��
+	embeddedPointer::obj* ptem;//定义一个嵌入式指针
+	ptem = (embeddedPointer::obj*)&mytest;//把对象mytest的首地址赋值给ptem指针，这个指针ptem就指向mytest的首地址
 	cout << sizeof(ptem->next) << endl;//4
 	cout << sizeof(embeddedPointer::obj) << endl;//4
 	ptem->next = nullptr;
 
-	//�ڴ�ش���Ľ�
+	//内存池代码改进
 	func();
 
 	system("pause");
@@ -138,19 +138,19 @@ int main(void)
 }
 
 /*
-*(1)Ƕ��ʽָ��embedded pointer
-*һ��Ӧ�����ڴ����ش����У�ʹ��Ƕ��ʽָ���и�ǰ�᣺��A���ֵ�sizeof��С��4���ֽ�
+*(1)嵌入式指针embedded pointer
+*一般应用在内存池相关代码中，使用嵌入式指针有个前提：类A兑现的sizeof不小于4个字节(因为要借用类A对象的前4个字节)(因为vs17的sizeof(指针)大小为4)
 *
-*Ƕ��ʽָ��Ĺ���ԭ����������A������ռ�õ��ڴ�ռ��ǰ4���ֽڣ���4��ָ�����������ڴ�顣
-*һ�������ȥ����4���ֽڵ�ָ��ռ�õ�λ�þͲ���Ҫ�����ˣ����Դ洢���ݡ�
+*嵌入式指针的工作原理：借用类A对象所占用的内存空间的前4个字节，这4个指针用来链接内存块。
+*一旦分配出去，这4个字节的指针占用的位置就不需要保存了，可以存储数据。
 *
-*Ƕ��ʽָ�������ʾ
+*嵌入式指针代码演示
 *
-*(2)�ڴ�ش���Ľ�
+*(2)内存池代码改进
 *
 *(3)
-*2019��11��29��20:40:48
-* Sunrise�ڶ���������ѧ�ڶ���ѧ¥1121ʵ����
+*2019年11月29日20:40:48
+* Sunrise于东北电力大学第二教学楼1121实验室
 
 *
 *
