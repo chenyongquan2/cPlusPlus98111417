@@ -36,12 +36,12 @@ class A
 public:
 	A()
 	{
-		cout << "µ÷ÓÃÀàAµÄ¹¹Ôìº¯Êý" << endl;
+		cout << "è°ƒç”¨ç±»Açš„æž„é€ å‡½æ•°" << endl;
 	}
 
 	~A()
 	{
-		cout << "µ÷ÓÃÀàAµÄÎö¹¹º¯Êý" << endl;
+		cout << "è°ƒç”¨ç±»Açš„æžæž„å‡½æ•°" << endl;
 	}
 public:
 	
@@ -56,7 +56,7 @@ int main(void)
 
 	char*p2 = new char[100];
 	delete[]p2;
-	//»áµ÷ÓÃÖØÐ´µÄÈ«¾Öoperator new[] operator delete[]µÈ
+	//ä¼šè°ƒç”¨é‡å†™çš„å…¨å±€operator new[] operator delete[]ç­‰
 
 	A *a1 = new A();
 	delete a1;
@@ -69,10 +69,10 @@ int main(void)
 }
 
 /*
-*(1)ÖØÔØÈ«¾Öoperator new operator deleteº¯Êý
-*Èç¹ûÀàÖÐÖØÔØÁËoperator new deleteÔËËã·û£¬»áµ÷ÓÃÀàÄÚ²¿µÄÖØÔØº¯Êý¡£
-*2019Äê11ÔÂ29ÈÕ21:08:25
-* SunriseÓÚ¶«±±µçÁ¦´óÑ§µÚ¶þ½ÌÑ§Â¥1121ÊµÑéÊÒ
+*(1)é‡è½½å…¨å±€operator new operator deleteå‡½æ•°
+*å¦‚æžœç±»ä¸­é‡è½½äº†operator new deleteè¿ç®—ç¬¦ï¼Œä¼šä¼˜å…ˆè°ƒç”¨ç±»å†…éƒ¨çš„é‡è½½å‡½æ•°ã€‚
+*2019å¹´11æœˆ29æ—¥21:08:25
+* SunriseäºŽä¸œåŒ—ç”µåŠ›å¤§å­¦ç¬¬äºŒæ•™å­¦æ¥¼1121å®žéªŒå®¤
 
 *
 */
