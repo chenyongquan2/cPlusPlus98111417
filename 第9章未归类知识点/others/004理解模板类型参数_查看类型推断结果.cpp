@@ -4,62 +4,65 @@
 
 using namespace std;
 
-//ÏÔÊ¾²ÎÊıÀàĞÍ£¬ÕâÀï²»ÑĞ¾¿boost¿â
+//æ˜¾ç¤ºå‚æ•°ç±»å‹ï¼Œè¿™é‡Œä¸ç ”ç©¶booståº“
 template<typename T>
-//void myFunction01(T&tem)//TÊÇÀàĞÍÄ£°å²ÎÊı£¬TÊÇÓĞÀàĞÍµÄ,temÊÇĞÎ²Î£¬temÒ²ÊÇÓĞÀàĞÍµÄ
+//void myFunction01(T&tem)//Tæ˜¯ç±»å‹æ¨¡æ¿å‚æ•°ï¼ŒTæ˜¯æœ‰ç±»å‹çš„,temæ˜¯å½¢å‚ï¼Œtemä¹Ÿæ˜¯æœ‰ç±»å‹çš„
 void myFunction01(const T &tem)
 {
+	//Tçš„ç±»å‹ä¸ä»…å’Œè°ƒç”¨è€…æä¾›çš„å®å‚(100)æœ‰å…³ç³»ï¼Œè¿˜å’Œtemçš„ç±»å‹(const T&æ•´ä¸ªä¸ºtemçš„ç±»å‹)æœ‰å…³ã€‚
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºå½¢å‚çš„ç±»å‹
 
 }
 
-//2.1Ö¸Õë»òÕßÒıÓÃÀàĞÍ
+//2.1æŒ‡é’ˆæˆ–è€…å¼•ç”¨ç±»å‹ï¼Œä½†ä¸æ˜¯ä¸‡èƒ½å¼•ç”¨ã€‚
 template<typename T>
-void myFunction02( T &tem)//temÊÇÒıÓÃ
+void myFunction02( T &tem)//temæ˜¯å¼•ç”¨
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-
-}
-
-template<typename T>
-void myFunction03( const T &tem)//ĞÎ²ÎÊÇ³£Á¿ÒıÓÃ
-{
-	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 
 }
 
 template<typename T>
-void myFunction04( T *tem)//ĞÎ²ÎÊÇÖ¸ÕëÀàĞÍ
+void myFunction03( const T &tem)//å½¢å‚æ˜¯å¸¸é‡å¼•ç”¨
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 
 }
 
 template<typename T>
-void myFunction05(T &&tem)//ĞÎ²ÎÊÇÍòÄÜÒıÓÃÀàĞÍ
+void myFunction04( T *tem)//å½¢å‚æ˜¯æŒ‡é’ˆç±»å‹
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+
+}
+
+template<typename T>
+void myFunction05(T &&tem)//å½¢å‚æ˜¯ä¸‡èƒ½å¼•ç”¨ç±»å‹
+{
+	using boost::typeindex::type_id_with_cvr;
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 
 }
 
 
 template<typename T>
-void myFunction06(T tem)//ĞÎ²ÎÊÇÍòÄÜÒıÓÃÀàĞÍ
+void myFunction06(T tem)//å½¢å‚æ˜¯ä¸‡èƒ½å¼•ç”¨ç±»å‹
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	
+	//tem=nullptr;
+	//temp='Y';
 }
 
 void tesFunction()
@@ -78,7 +81,7 @@ int main(void)
 	//2.1
 	int i = 18;	//int
 	const int j = i;	//const int
-	const int&k = i;	//const int&ÀàĞÍ
+	const int&k = i;	//const int&ç±»å‹ //kä¸ºiçš„åˆ«å
 	cout << "-----" << endl;
 	myFunction02(i);
 	myFunction02(j);
@@ -90,14 +93,14 @@ int main(void)
 		tem type=int const &
 		T type=int const
 		tem type=int const &
-	1.Èç¹ûÊµ²ÎÊÇÒıÓÃÀàĞÍ£¬ÔòÒıÓÃÀàĞÍ»á±»ºöÂÔµô£¬T²»»á±»ÍÆµ½ÎªÒıÓÃÀàĞÍ¡£
-	2.µ±ÎÒÃÇÏòÒıÓÃÀàĞÍµÄĞÎ²Îtem´«µİconstÀàĞÍÊµ²ÎÊ±£¬ĞÎ²Î¾Í»á³ÉÎªconst&
-		Êµ²ÎµÄconstÊôĞÔ»á³ÉÎªÀàĞÍÄ£°å²ÎÊıµÄÍÆµ¼µÄÀàĞÍµÄ×é³É²¿·Ö£¬
-		Ò²¾ÍÊÇËµ£¬Êµ²ÎµÄconstÊôĞÔ»á´«µİ¡£ÔÚº¯ÊıÖĞĞŞ¸Ä²»ÁËÔ­À´´øconstÊôĞÔµÄÊµ²Î¡£
+	1.å¦‚æœå®å‚æ˜¯å¼•ç”¨ç±»å‹ï¼Œåˆ™å…¶çš„å¼•ç”¨ç±»å‹å±æ€§ä¼šè¢«å¿½ç•¥æ‰ï¼ŒTä¸ä¼šè¢«æ¨åˆ°ä¸ºå¼•ç”¨ç±»å‹ã€‚
+	2.å½“æˆ‘ä»¬å‘å¼•ç”¨ç±»å‹çš„å½¢å‚temä¼ é€’constç±»å‹å®å‚æ—¶ï¼Œå½¢å‚å°±ä¼šæˆä¸ºconst&
+		å®å‚çš„constå±æ€§ä¼šæˆä¸ºç±»å‹æ¨¡æ¿å‚æ•°Tçš„æ¨å¯¼çš„ç±»å‹çš„ç»„æˆéƒ¨åˆ†ï¼Œ
+		ä¹Ÿå°±æ˜¯è¯´ï¼Œå®å‚çš„constå±æ€§ä¼šä¼ é€’ã€‚åœ¨å‡½æ•°myFunction02ä¸­ä¿®æ”¹ä¸äº†åŸæ¥å¸¦constå±æ€§çš„å®å‚ã€‚
 	
 	 */
 
-	//ĞÎ²ÎÊÇ³£Á¿ÒıÓÃ
+	//å½¢å‚æ˜¯å¸¸é‡å¼•ç”¨
 	cout << "*******" << endl;
 	myFunction03(i);
 	myFunction03(j);
@@ -110,12 +113,12 @@ int main(void)
 		T type=int
 		tem type=int const &
 
-	1.Èç¹ûÊµ²ÎÊÇÒıÓÃÀàĞÍ£¬ÔòÒıÓÃÀàĞÍ»á±»ºöÂÔµô£¬T²»»á±»ÍÆµ½ÎªÒıÓÃÀàĞÍ¡£
-	2.¶ÔÓÚÓĞconstÊôĞÔµÄÊµ²Î£¬ÍÆµ¼ºóTÖĞµÄconstÊôĞÔÃ»ÓĞÁË£¬ÒòÎªÄ£°åº¯ÊımyFunction03µÄĞÎ²Îtem³öÏÖÁËconst¡£Êµ²ÎconstÌæ»»µôĞÎ²Îconst
+	1.å¦‚æœå®å‚æ˜¯å¼•ç”¨ç±»å‹ï¼Œåˆ™å¼•ç”¨ç±»å‹ä¼šè¢«å¿½ç•¥æ‰ï¼ŒTä¸ä¼šè¢«æ¨åˆ°ä¸ºå¼•ç”¨ç±»å‹ã€‚
+	2.å¯¹äºæœ‰constå±æ€§çš„å®å‚ï¼Œæ¨å¯¼åTä¸­çš„constå±æ€§æ²¡æœ‰äº†(å› ä¸ºå®å‚å·²ç»æœ‰constå±æ€§äº†)ï¼Œå› ä¸ºæ¨¡æ¿å‡½æ•°myFunction03çš„å½¢å‚temå‡ºç°äº†constã€‚å®å‚constæ›¿æ¢æ‰å½¢å‚const
 	
 	 */
 
-	//Ö¸ÕëÀàĞÍ
+	//æŒ‡é’ˆç±»å‹
 	const int*pi = &i;
 	cout << "&&&&&&&&&" << endl;
 	myFunction04(&i);
@@ -125,19 +128,19 @@ int main(void)
 		tem type=int *
 		T type=int const
 		tem type=int const *
-	½áÂÛ£ºÈç¹ûtemĞÎ²ÎÖĞÃ»ÓĞconst£¬ÔòÊµ²ÎÖĞµÄconst¾Í»á´«µİµ½TÀàĞÍÖĞÈ¥¡£Èç¹ûĞÎ²ÎÖĞÓĞconst£¬ÔòTÀàĞÍÖĞ²»»á´øconst¡£
+	ç»“è®ºï¼šå¦‚æœtemå½¢å‚ä¸­æ²¡æœ‰constï¼Œåˆ™å®å‚ä¸­çš„constå°±ä¼šä¼ é€’åˆ°Tç±»å‹ä¸­å»ã€‚å¦‚æœå½¢å‚ä¸­æœ‰constï¼Œåˆ™Tç±»å‹ä¸­ä¸ä¼šå¸¦constã€‚
 	
 	 */
 
-	//*	2.2ÍòÄÜÒıÓÃ--ĞÎÊ½²ÎÊıtemÊÇÒ»¸öÍòÄÜÒıÓÃÀàĞÍT&&
+	//*	2.2ä¸‡èƒ½å¼•ç”¨--å½¢å¼å‚æ•°temæ˜¯ä¸€ä¸ªä¸‡èƒ½å¼•ç”¨ç±»å‹T&&ï¼Œæ ¹æ®ä½ ä¼ è¿›æ¥çš„å®å‚æ˜¯å·¦å€¼è¿˜æ˜¯å³å€¼ï¼Œä¸‡èƒ½å¼•ç”¨çš„è¡¨ç°æ˜¯ä¸åŒçš„ã€‚
 	cout << "2.2------------------------" << endl;
-	myFunction05(i);//×óÖµ
-	myFunction05(j);//×óÖµ
+	myFunction05(i);//å·¦å€¼ 
+	myFunction05(j);//å·¦å€¼
 	myFunction05(k);
-	myFunction05(100);//´«µİ¹ıÈ¥ÓÒÖµ
+	myFunction05(100);//ä¼ é€’è¿‡å»å³å€¼
 	/*
 	T type=int &
-	tem type=int &	//ÕâÀïÓĞÒıÓÃÕÛµş
+	tem type=int &	//è¿™é‡Œæœ‰å¼•ç”¨æŠ˜å  int& && => int &
 	T type=int const &
 	tem type=int const &
 	T type=int const &
@@ -147,52 +150,55 @@ int main(void)
 	 */
 
 
-	//2.3´«Öµ·½Ê½ Èç¹ûĞÎÊ½²ÎÊıtemÊÇ³£¹æµÄ´«Öµ·½Ê½´«µİ
+	//2.3ä¼ å€¼æ–¹å¼ å¦‚æœå½¢å¼å‚æ•°temæ˜¯å¸¸è§„çš„ä¼ å€¼æ–¹å¼ä¼ é€’
 	cout << "2.3------------------------" << endl;
 	myFunction06(i);
 	myFunction06(j);
 	myFunction06(k);
+	//void myFunction06(T tem)//å› ä¸ºè¿™é‡Œæ˜¯å€¼æ‹·è´ï¼Œè€Œä¸æ˜¯ä¼ å¼•ç”¨ã€‚
 	/*
 	 *  T type=int
 		tem type=int
 		T type=int
-		tem type=int
+		tem type=int 
 		T type=int
 		tem type=int
-	constÊôĞÔÃ»ÓĞ´«µİ½øÈ¥£¬ÒòÎªĞÎÊ½²ÎÊıÊÇÒ»¸öĞÂ¸±±¾¡£ÔõÃ´´«µİ½øÈ¥constÊôĞÔ£¿£¿£¿-->´«µİÖ¸Õë½øÈ¥
+	constå±æ€§æ²¡æœ‰ä¼ é€’è¿›å»ï¼Œå› ä¸ºå½¢å¼å‚æ•°æ˜¯ä¸€ä¸ªæ–°å‰¯æœ¬ã€‚æ€ä¹ˆä¼ é€’è¿›å»constå±æ€§ï¼Ÿï¼Ÿï¼Ÿ
 	 */
+	//-ç°åœ¨æˆ‘ä»¬ä¼ é€’æŒ‡é’ˆä½œä¸ºå½¢å‚è¿›å»
 	char myStr[] = "jisuanjizuchengyhuanli";
-	const char*const point = myStr;//µÚÒ»¸öconstĞŞÊÎÄÚ´æ¿Õ¼ä£¬µÚ¶ş¸ö±íÊ¾Ö¸ÕëµÄÖ¸Ïò²»ÄÜ¸Ä±ä
+	const char*const point = myStr;//ç¬¬ä¸€ä¸ªconstä¿®é¥°å†…å­˜ç©ºé—´ï¼Œç¬¬äºŒä¸ªè¡¨ç¤ºæŒ‡é’ˆçš„æŒ‡å‘ä¸èƒ½æ”¹å˜
 	cout << "jjjjjjjjjjjjjjjj" << endl;
 	myFunction06(point);
 	/*
 	 T type=char const *
 	 tem type=char const *
-	´«µİconst char*»òÕßconst char[]µÚÒ»¸öconstÃ»ÓĞÁË£¬µÚ¶ş¸öconst±£Áô¡£
+	ä¼ é€’const char*æˆ–è€…const char[]ç¬¬ä¸€ä¸ªconstæ²¡æœ‰äº†ï¼Œç¬¬äºŒä¸ªconstä¿ç•™ã€‚
+	//æ€»ç»“ï¼šå¦‚æœä½ ä¼ é€’çš„æ˜¯const char*æˆ–è€…const char[] æ•°ç»„ï¼Œé‚£ä¹ˆè¿™ä¸ªconstä¼šè¢«ä¿ç•™ã€‚
 	 */
 
-	//2.4Êı×é×öÊµ²Î
+	//2.4æ•°ç»„åšå®å‚
 	const char mystr02[] = "jisuanjizuchegnaun";
 	cout << "22222222222222222222222" << endl;
 
 	myFunction06(mystr02);
-	myFunction02(mystr02);//µ÷ÒıÓÃ--ÍÆµ¼³ÉÊı×é
+	myFunction02(mystr02);//è°ƒå¼•ç”¨--æ¨å¯¼æˆæ•°ç»„
 	/*
 	T type=char const *
 	tem type=char const *
 	T type=char const [19]
-	tem type=char const (&)[19]//´ú±íÊı×éµÄÒıÓÃ
+	tem type=char const (&)[19]//ä»£è¡¨æ•°ç»„çš„å¼•ç”¨
 	*/
 
-	//	2.5º¯ÊıÃû×öÊµ²Î£¬º¯ÊıÃûÏàµ±ÓÚº¯ÊıÊ×µØÖ·£¬¿ÉÒÔ¸³Öµ¸øÒ»¸öº¯ÊıÖ¸Õë
+	//	2.5å‡½æ•°ååšå®å‚ï¼Œå‡½æ•°åç›¸å½“äºå‡½æ•°é¦–åœ°å€ï¼Œå¯ä»¥èµ‹å€¼ç»™ä¸€ä¸ªå‡½æ•°æŒ‡é’ˆ
 	cout << "6666666666666" << endl;
 	myFunction06(tesFunction);
 
-	myFunction02(tesFunction);//ÒıÓÃ
+	myFunction02(tesFunction);//å¼•ç”¨
 	/*
-	T type=void (__cdecl*)(void)//º¯ÊıÖ¸ÕëÀàĞÍ
+	T type=void (__cdecl*)(void)//å‡½æ•°æŒ‡é’ˆç±»å‹
 	tem type=void (__cdecl*)(void)
-	T type=void __cdecl(void)//º¯ÊıÖ¸ÕëÒıÓÃ
+	T type=void __cdecl(void)//å‡½æ•°æŒ‡é’ˆå¼•ç”¨
 	tem type=void (__cdecl&)(void)
 	 */
 
@@ -203,39 +209,39 @@ int main(void)
 }
 
 /*
-*(1)ÈçºÎ²é¿´ÀàĞÍÍÆ¶Ï½á¹û
-*	ÍÆ¶ÏÓĞÊ±ºò½Ğ×öÍÆµ¼£¬ÔÚÏÖ´úc++ÖĞ£¬¾­³£Éæ¼°µ½ÍÆ¶Ï£¬ÈçautoµÈ¡£ÕâÀïÖ÷Òª½²½âÄ£°åÀàĞÍÍÆ¶ÏµÄÖªÊ¶¡£
-*	Ä£Äâ±àÒëÆ÷À´ÍÆ¶ÏÒ»¸öÄ£°å²ÎÊıºÍÆÕÍ¨²ÎÊıµÄÀàĞÍ¡£
-*	ÕâÀïÒªÑéÖ¤ÎÒÃÇÍÆ¶Ï³öµÄÀàĞÍºÍ±àÒëÆ÷ÍÆ¶Ï³öÀ´µÄÀàĞÍÊÇ·ñÒ»ÖÂ¡£--Ñ§Ï°ÀàĞÍÍÆ¶ÏµÄÔ­Òò£¿
-*	ÎÒÃÇÎªÁËÑ§Ï°ÀàĞÍÍÆ¶ÏÏà¹ØÖªÊ¶£¬ÓĞ±ØÒªÖªµÀ±àÒëÆ÷ÍÆ¶Ï³öÀ´µÄ¡°Ä£°å²ÎÊıÀàĞÍ¡±ÒÔ¼°¡°ÆÕÍ¨²ÎÊıÀàĞÍ¡±µÄprotype
+*(1)å¦‚ä½•æŸ¥çœ‹ç±»å‹æ¨æ–­ç»“æœ
+*	æ¨æ–­æœ‰æ—¶å€™å«åšæ¨å¯¼ï¼Œåœ¨ç°ä»£c++ä¸­ï¼Œç»å¸¸æ¶‰åŠåˆ°æ¨æ–­ï¼Œå¦‚autoç­‰ã€‚è¿™é‡Œä¸»è¦è®²è§£æ¨¡æ¿ç±»å‹æ¨æ–­çš„çŸ¥è¯†ã€‚
+*	æ¨¡æ‹Ÿç¼–è¯‘å™¨æ¥æ¨æ–­ä¸€ä¸ªæ¨¡æ¿å‚æ•°å’Œæ™®é€šå‚æ•°çš„ç±»å‹ã€‚
+*	è¿™é‡Œè¦éªŒè¯æˆ‘ä»¬æ¨æ–­å‡ºçš„ç±»å‹å’Œç¼–è¯‘å™¨æ¨æ–­å‡ºæ¥çš„ç±»å‹æ˜¯å¦ä¸€è‡´ã€‚--å­¦ä¹ ç±»å‹æ¨æ–­çš„åŸå› ï¼Ÿ
+*	æˆ‘ä»¬ä¸ºäº†å­¦ä¹ ç±»å‹æ¨æ–­ç›¸å…³çŸ¥è¯†ï¼Œæœ‰å¿…è¦çŸ¥é“ç¼–è¯‘å™¨æ¨æ–­å‡ºæ¥çš„â€œæ¨¡æ¿å‚æ•°ç±»å‹â€ä»¥åŠâ€œæ™®é€šå‚æ•°ç±»å‹â€çš„protype
 *
-*	Í¨¹ı¡°²é¿´±àÒëÆ÷ÀàĞÍÍÆ¶ÏµÄ½á¹û¡±Õâ¸öÊÖ¶ÎÀ´Ñ§Ï°²¢ÕÆÎÕc++ÀàĞÍÍÆ¶ÏµÄ¹æÔò¡£ÒªÇóÕÆÎÕC++ÀàĞÍÍÆ¶Ï½á¹û£¬
-*	¶ø²»ÊÇÒÀÀµÊ²Ã´ÊÖ¶ÎÈ¥²é¿´±àÒëÆ÷¸öÎÒÃÇÍÆ¶Ï³öÀ´µÄ½á¹û¡£
+*	é€šè¿‡â€œæŸ¥çœ‹ç¼–è¯‘å™¨ç±»å‹æ¨æ–­çš„ç»“æœâ€è¿™ä¸ªæ‰‹æ®µæ¥å­¦ä¹ å¹¶æŒæ¡c++ç±»å‹æ¨æ–­çš„è§„åˆ™ã€‚è¦æ±‚æŒæ¡C++ç±»å‹æ¨æ–­ç»“æœï¼Œ
+*	è€Œä¸æ˜¯ä¾èµ–ä»€ä¹ˆæ‰‹æ®µå»æŸ¥çœ‹ç¼–è¯‘å™¨ä¸ªæˆ‘ä»¬æ¨æ–­å‡ºæ¥çš„ç»“æœã€‚
 *
-*	Ê¹ÓÃboost¿â£¬°Ñ±àÒëÆ÷¸øÎÒÃÇÍÆ¶Ï³öÀ´µÄÀàĞÍĞÅÏ¢´òÓ¡³öÀ´¡£
-*		1.·ÃÎÊ¹ÙÍøhttps://www.boost.org/ ÏÂÔØboost¿â
-*		2.µã»÷ÓÒ²àVersion History¿ÉÒÔÏÂÔØµ½1.68.0°æ±¾
-*		3.½«ÎÄ¼ş½âÑ¹µ½Ò»¸öÎÄ¼ş¼ĞÖĞ£¬±¾ÀıÖĞboost_1_68_0£¬
-*		4.ÓÒ¼üÏîÄ¿--¡°ÊôĞÔ¡±--¡°vc++Ä¿Â¼¡±--¡°°üº¬Ä¿Â¼¡±ÖĞ½«½âÑ¹µÄÂ·¾¶Ìí¼ÓÉÏ
-*	ÕâÀïÊ¹ÓÃnuget°²×°£¬ÓÒ¼üÏîÄ¿ --¡°¹ÜÀíNuGet°²×°°ü¡±£¬ËÑË÷boost°²×°°ü
+*	ä½¿ç”¨booståº“ï¼ŒæŠŠç¼–è¯‘å™¨ç»™æˆ‘ä»¬æ¨æ–­å‡ºæ¥çš„ç±»å‹ä¿¡æ¯æ‰“å°å‡ºæ¥ã€‚
+*		1.è®¿é—®å®˜ç½‘https://www.boost.org/ ä¸‹è½½booståº“
+*		2.ç‚¹å‡»å³ä¾§Version Historyå¯ä»¥ä¸‹è½½åˆ°1.68.0ç‰ˆæœ¬
+*		3.å°†æ–‡ä»¶è§£å‹åˆ°ä¸€ä¸ªæ–‡ä»¶å¤¹ä¸­ï¼Œæœ¬ä¾‹ä¸­boost_1_68_0ï¼Œ
+*		4.å³é”®é¡¹ç›®--â€œå±æ€§â€--â€œvc++ç›®å½•â€--â€œåŒ…å«ç›®å½•â€ä¸­å°†è§£å‹çš„è·¯å¾„æ·»åŠ ä¸Š
+*	è¿™é‡Œä½¿ç”¨nugetå®‰è£…ï¼Œå³é”®é¡¹ç›® --â€œç®¡ç†NuGetå®‰è£…åŒ…â€ï¼Œæœç´¢boostå®‰è£…åŒ…
 *	
-*(2)Àí½âÄ£°åÀàĞÍÍÆ¶Ï
-*	2.1Ö¸Õë»òÕßÒıÓÃÀàĞÍ
-*			Èç¹ûtemÀàĞÍÊÇ¸öÖ¸Õë»òÕßÒıÓÃ£¬µ«ÊÇ²»ÊÇÍòÄÜÒıÓÃ
-*	2.2ÍòÄÜÒıÓÃ--ĞÎÊ½²ÎÊıtemÊÇÒ»¸öÍòÄÜÒıÓÃÀàĞÍT&&
+*(2)ç†è§£æ¨¡æ¿ç±»å‹æ¨æ–­
+*	2.1æŒ‡é’ˆæˆ–è€…å¼•ç”¨ç±»å‹
+*			å¦‚æœtemç±»å‹æ˜¯ä¸ªæŒ‡é’ˆæˆ–è€…å¼•ç”¨ï¼Œä½†æ˜¯ä¸æ˜¯ä¸‡èƒ½å¼•ç”¨
+*	2.2ä¸‡èƒ½å¼•ç”¨--å½¢å¼å‚æ•°temæ˜¯ä¸€ä¸ªä¸‡èƒ½å¼•ç”¨ç±»å‹T&&
 *
-*	2.3´«Öµ·½Ê½
+*	2.3ä¼ å€¼æ–¹å¼
 *
-*	2.4Êı×é×öÊµ²Î
-*		Êı×éÃû´ú±íÊı×éµÄÊ×µØÖ·
-*	2.5º¯ÊıÃû×öÊµ²Î£¬º¯ÊıÃûÏàµ±ÓÚº¯ÊıÊ×µØÖ·£¬¿ÉÒÔ¸³Öµ¸øÒ»¸öº¯ÊıÖ¸Õë
-*(3)×Ü½á£º
-*	1.ÍÆ¶ÏÖĞ£¬ÒıÓÃÀàĞÍÊµ²ÎµÄÒıÓÃÀàĞÍµÈÓÚ²»´æÔÚ
-*	2.ÍòÄÜÒıÓÃÖĞ£¬Êµ²ÎÎªÓÒÖµºÍ×óÖµ£¬ÍÆ¶Ï³öÀ´µÄ½á¹û²»Í¬
-*	3.°´Öµ´«µİµÄÊµ²Î£¬´«µİ¸øĞÎ²ÎÊ±constÊôĞÔ²»Æğ×÷ÓÃ£¬Ôò´«µİ¹ıÈ¥Ö¸Õë¿ÉÄÜÆğ×÷ÓÃ¡£
-*	4.Êı×é»òÕßº¯ÊıÀàĞÍÔÚÍÆ¶ÏÖĞ±»¿´×÷Ö¸Õë£¬³ı·Çº¯ÊıÄ£°åµÄĞÎ²ÎÊÇ¸öÒıÓÃ¡£
+*	2.4æ•°ç»„åšå®å‚
+*		æ•°ç»„åä»£è¡¨æ•°ç»„çš„é¦–åœ°å€
+*	2.5å‡½æ•°ååšå®å‚ï¼Œå‡½æ•°åç›¸å½“äºå‡½æ•°é¦–åœ°å€ï¼Œå¯ä»¥èµ‹å€¼ç»™ä¸€ä¸ªå‡½æ•°æŒ‡é’ˆ
+*(3)æ€»ç»“ï¼š
+*	1.æ¨æ–­ä¸­ï¼Œå¼•ç”¨ç±»å‹å®å‚çš„å¼•ç”¨ç±»å‹ç­‰äºä¸å­˜åœ¨
+*	2.ä¸‡èƒ½å¼•ç”¨ä¸­ï¼Œå®å‚ä¸ºå³å€¼å’Œå·¦å€¼ï¼Œæ¨æ–­å‡ºæ¥çš„ç»“æœä¸åŒ
+*	3.æŒ‰å€¼ä¼ é€’çš„å®å‚ï¼Œä¼ é€’ç»™å½¢å‚æ—¶constå±æ€§ä¸èµ·ä½œç”¨ï¼Œåˆ™ä¼ é€’è¿‡å»æŒ‡é’ˆå¯èƒ½èµ·ä½œç”¨ã€‚
+*	4.æ•°ç»„æˆ–è€…å‡½æ•°ç±»å‹åœ¨æ¨æ–­ä¸­è¢«çœ‹ä½œæŒ‡é’ˆï¼Œé™¤éå‡½æ•°æ¨¡æ¿çš„å½¢å‚æ˜¯ä¸ªå¼•ç”¨ã€‚
 *(4)
-*2019Äê12ÔÂ9ÈÕ
-*20µã48·Ö
+*2019å¹´12æœˆ9æ—¥
+*20ç‚¹48åˆ†
 *
 */
