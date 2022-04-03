@@ -4,18 +4,18 @@
 using namespace std;
 
 template<typename T>
-void myFunction01(T &&tem)//T������ģ�������T�������͵�,tem���βΣ�temҲ�������͵�
+void myFunction01(T &&tem)//T是类型模板参数，T是有类型的,tem是形参，tem也是有类型的
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//��ʾT����
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//��ʾtem����
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//显示T类型
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//显示tem类型
 
 }
 
 int main(void)
 {
-	int i = 18;//i��������int���ͣ�i�Ǹ���ֵ��
-	myFunction01(i);//ʵ������,������Ϊ�������ƶϺ�ĽṹΪvoid myFunction(int& &&tem){}
+	int i = 18;//i的类型是int类型，i是个左值。
+	myFunction01(i);//实例化后,我们认为编译器推断后的结构为void myFunction(int& &&tem){}
 	myFunction01(12);
 	/*
 	 *	T type=int &
@@ -23,13 +23,15 @@ int main(void)
 		T type=int
 		tem type=int &&
 	 */
-	//����������ʵ����������myFunction��ʲô���� void myFunction(int&tem){}--�����۵�
+	//编译器真正实例化出来的myFunction是这个类型： void myFunction(int&tem){}--引用折叠
 
 
-	//1.1���õ�����
+	//1.1引用的引用
 	int number = 500;
-	int &number_reference = number;//����
-	//int & &rr = b;//������һ�����ֵ���ã��ֿ������õ����ã��ǷǷ��ġ����Ǳ������ڲ����Գ��֣����Լ��Ƶ���ʹ�������۵�������
+	int &number_reference = number;//引用
+	//int& &num_rr = number_reference;//代码不允许出现引用的引用,error
+	//int& &num_rr =number;//代码不允许出现引用的引用,error，虽然有这个叫法 但是不允许你在程序中这么写。
+	//int & &rr = b;//链接在一起叫右值引用，空格分开叫引用的引用，是非法的。但是编译器内部可以出现，它自己推导，使用引用折叠处理。
 
 
 	
@@ -37,25 +39,27 @@ int main(void)
 	return 0;
 }
 /*
- * (1)�����۵�����
- * �����۵���c++s11�±�׼����һ��������һ������reference-collapsing rules ����̮����&&&--->&
- * c++��׼������ȷ���������ֻ�����֣�һ����&��ֵ���ã�һ����&&��ֵ���á�
- *	void myFunction(int& &&tem)//���� int&����ֵ���ã��ڶ���&&tem����ֵ��������
+ * (1)引用折叠规则
+ * 引用折叠是c++s11新标准，是一条规则，是一条规则reference-collapsing rules 引用坍塌，&&&--->&
+ * c++标准中有明确含义的引用只有两种：一种是&左值引用，一种是&&右值引用。
+ *	void myFunction(int& &&tem)
+ 	//注意两组中间有个空格，
+ 	//两组 int&是左值引用，第二组&&tem是右值引用类型
  *	
- *	ʲô����³��������۵�����
- *	�ֳ����飬��һ������ֵ����/��ֵ����		�ڶ��� ��ֵ����/��ֵ����
- *			��ֵ����  ��ֵ����	&		&
- *			��ֵ����	��ֵ����	&		&&	��ǰ�����
- *			��ֵ����	��ֵ����	&&		&
- *			��ֵ����	��ֵ����	&		&
- *		�۵���������κ�һ��Ϊ��ֵ���ã���ô���������ֵ���ã����������ֵ���á�--��ֵ���д�Ⱦ�ԡ�
+ *	什么情况下出现引用折叠？？/引用坍塌
+ *	分成两组，第一组是左值引用/右值引用		第二组 左值引用/右值引用
+ *			左值引用  左值引用	&		&
+ *			左值引用	右值引用	&		&&	当前的情况
+ *			右值引用	左值引用	&&		&
+ *			右值引用	右值引用	&&		&&
+ *		折叠规则：如果任何一个为左值引用，那么结果就是左值引用，否则就是右值引用。--左值具有传染性。
  *
- *		1.1���õ�����
- *		��������ʾд�����Ǳ������ڲ����к���ģ�������ƶϵ�ʱ����Գ��֣�������ʹ�������۵�������д�����
- *		���������������򿪷���д�����õ����õĴ��롣
- *	��Ҫ�����۵��ĳ����У�
- *		1.����ģ��ʵ����
- *		2.auto�Զ������ƶϵ�ʱ��
+ *		1.1引用的引用  ：void func(int& &&i){};//报错"i"引用的引用非法
+ *		不可以显示写，但是编译器内部进行函数模板类型推断的时候可以出现，编译器使用引用折叠规则进行处理。
+ *		编译器不允许程序开发者写出引用的引用的代码。
+ *	需要引用折叠的场景有：
+ *		1.函数模板实例化
+ *		2.auto自动类型推断的时候
  *		
  * (2)
  * (3)
