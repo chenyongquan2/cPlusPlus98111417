@@ -13,20 +13,22 @@ T& DoubleMyself(T&value)
 
 
 template<typename T>
-decltype(auto) DoubleMyself02(T&value)//Ê¹ÓÃautoÍÆ¶Ï·µ»ØÖµ½á¹û
-{//°ÑautoÀí½â³ÉÒªÍÆµ¼µÄÀàĞÍ£¬ÍÆµ¼¹ı³ÌÀí½âÎªÎÒÃÇ²ÉÓÃdecltypeÍÆµ¼
+decltype(auto) DoubleMyself02(T&value)//ä½¿ç”¨autoæ¨æ–­è¿”å›å€¼ç»“æœ
+//auto DoubleMyself02(T&value)//errorï¼Œå› ä¸ºautoä¼šæŠŠå¼•ç”¨ç±»å‹çš„æ€§è´¨ç»™æŠ›å¼ƒæ‰ã€‚è¿™é‡Œautoæ¨å¯¼ä¸ºintç±»å‹ã€‚
+{//æŠŠautoç†è§£æˆè¦æ¨å¯¼çš„ç±»å‹ï¼Œæ¨å¯¼è¿‡ç¨‹ç†è§£ä¸ºæˆ‘ä»¬é‡‡ç”¨decltypeæ¨å¯¼
 	value *= 2;
 	return value;
 }
 
 int main(void)
 {
-	//2.4 decltypeµÄÖ÷ÒªÓÃÍ¾_decltype(auto)ÓÃ·¨
-	//1.ÓÃÓÚº¯Êı·µ»ØÀàĞÍ
+	//2.4 decltypeçš„ä¸»è¦ç”¨é€”_decltype(auto)ç”¨æ³•
+	//1.ç”¨äºå‡½æ•°è¿”å›ç±»å‹
 	int number01 = 100;
-	DoubleMyself(number01) = 20;//·µ»ØµÄÊÇ×óÖµÒıÓÃ£¬ËùÒÔ¿ÉÒÔ¸³Öµ
+	DoubleMyself(number01) = 20;//è¿”å›çš„æ˜¯å·¦å€¼å¼•ç”¨ï¼Œæ‰€ä»¥å¯ä»¥èµ‹å€¼
 	cout << "number01=" << number01 << endl;//20
-	//Ê¹ÓÃautoÍÆ¶Ï·µ»ØÖµ½á¹û,DoubleMyself02µÄ·µ»ØÖµ½á¹ûÊÇint£¬ÊÇÒ»¸öÓÒÖµ£¬²»ÄÜ¸øÓÒÖµ¸³Öµ¡£¼ÓÉÏdecltype ok
+	////auto DoubleMyself02(T&value)//error
+	//ä½¿ç”¨autoæ¨æ–­è¿”å›å€¼ç»“æœ,DoubleMyself02çš„è¿”å›å€¼ç»“æœæ˜¯intï¼Œæ˜¯ä¸€ä¸ªå³å€¼ï¼Œä¸èƒ½ç»™å³å€¼èµ‹å€¼ã€‚åŠ ä¸Šdecltype ok
 	DoubleMyself02(number01) = 43;
 	cout << number01 << endl;//43
 
@@ -37,9 +39,9 @@ int main(void)
 	return 0;
 }
 /*
-*2.4 decltypeµÄÖ÷ÒªÓÃÍ¾_decltype(auto)ÓÃ·¨
-*c++14ÖĞ´æÔÚÕâÖÖÓï·¨£¬±àÒëÆ÷ÒªÖ§³Öc++14Óï·¨
-*	1.ÓÃÓÚº¯Êı·µ»ØÀàĞÍ
+*2.4 decltypeçš„ä¸»è¦ç”¨é€”_decltype(auto)ç”¨æ³•
+*c++14ä¸­å­˜åœ¨è¿™ç§è¯­æ³•ï¼Œç¼–è¯‘å™¨è¦æ”¯æŒc++14è¯­æ³•
+*	1.ç”¨äºå‡½æ•°è¿”å›ç±»å‹
 * (3)
 * (4)
 * (5)
