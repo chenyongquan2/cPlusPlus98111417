@@ -9,24 +9,27 @@ void myFunction(T&&tem)
 
 int main(void)
 {
-	int ix = 12;//ixÊÇ×óÖµ
-	int&&reference = std::move(ix);//×óÖµ×ª»»ÎªÓÒÖµ°ó¶¨
-	int&&reference02 = std::forward<int>(ix);//ok ¿ÉÒÔ°Ñ×óÖµ³É¹¦µÄ×ª»»ÎªÓÒÖµ
+	int ix = 12;//ixæ˜¯å·¦å€¼
+	int&&reference = std::move(ix);//å·¦å€¼è½¬æ¢ä¸ºå³å€¼ç»‘å®š
+	int&&reference02 = std::forward<int>(ix);//ok å¯ä»¥æŠŠå·¦å€¼æˆåŠŸçš„è½¬æ¢ä¸ºå³å€¼
 
-	myFunction(ix);//iÊÇ×óÖµ£¬T=int&,tem=int&
-	myFunction(100);//100ÊÇÓÒÖµ£¬T=int,tem=int&&
+	myFunction(ix);//iæ˜¯å·¦å€¼ï¼ŒT=int&,tem=int&
+	myFunction(100);//100æ˜¯å³å€¼ï¼ŒT=int,tem=int&&
 
-	/*std::forward<int>(ix);×ª»»»¹ÊÇ²»×ª»»£¬È¡¾öÓÚ<>ÀïÃæµÄÖµ£¬¿ÉÒÔÀà±ÈÓÚÍòÄÜÒıÓÃ£¬
-	 *14ĞĞÊÇT=int,tem=int&&ÀàĞÍ
+	/*std::forward<int>(ix);è½¬æ¢è¿˜æ˜¯ä¸è½¬æ¢ï¼Œè½¬æ¢æˆå•¥æ ·å–å†³äº<>é‡Œé¢çš„å€¼ï¼Œå¯ä»¥ç±»æ¯”äºä¸‡èƒ½å¼•ç”¨ï¼Œ
+	 *14è¡Œæ˜¯T=int,tem=int&&ç±»å‹
 	 * 
 	 */
+	int i = 10;
+	int&& ir1 = std::forward<int>(i);//è½¬æ¢æˆå·¦å€¼
+	int& ir2 = std::forward<int &>(i);//è½¬æ¢æˆå³å€¼
 	
 	system("pause");
 	return 0;
 }
 /*
-* (1)std::forwardÓÃ·¨²¹³ä
-*		Ó¦ÓÃÓÚÄ£°å×ª·¢º¯Êı	°ÑÒ»¸öÖµ×ª»»ÎªÔ­Ê¼Êµ²ÎµÄÀàĞÍ
+* (1)std::forwardç”¨æ³•è¡¥å……
+*		åº”ç”¨äºæ¨¡æ¿è½¬å‘å‡½æ•°	æŠŠä¸€ä¸ªå€¼è½¬æ¢ä¸ºåŸå§‹å®å‚çš„ç±»å‹
 * (2)
 * (3)
 * (4)
