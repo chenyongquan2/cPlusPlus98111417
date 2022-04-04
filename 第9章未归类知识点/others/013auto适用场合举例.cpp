@@ -7,13 +7,13 @@
 
 using namespace std;
 
-//ÏÔÊ¾²ÎÊıÀàĞÍ£¬ÕâÀï²»ÑĞ¾¿boost¿â
+//æ˜¾ç¤ºå‚æ•°ç±»å‹ï¼Œè¿™é‡Œä¸ç ”ç©¶booståº“
 template<typename T>
-void myFunction01(T&tem)//TÊÇÀàĞÍÄ£°å²ÎÊı£¬TÊÇÓĞÀàĞÍµÄ,temÊÇĞÎ²Î£¬temÒ²ÊÇÓĞÀàĞÍµÄ
+void myFunction01(T&tem)//Tæ˜¯ç±»å‹æ¨¡æ¿å‚æ•°ï¼ŒTæ˜¯æœ‰ç±»å‹çš„,temæ˜¯å½¢å‚ï¼Œtemä¹Ÿæ˜¯æœ‰ç±»å‹çš„
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 
 }
 
@@ -35,11 +35,11 @@ public:
 	}
 };
 
-//Í¨¹ıÀàÄ£°åµ÷ÓÃÉÏÃæÁ½¸öÀàÖĞµÄº¯Êı,·µ»ØÖµ²»È·¶¨
+//é€šè¿‡ç±»æ¨¡æ¿è°ƒç”¨ä¸Šé¢ä¸¤ä¸ªç±»ä¸­çš„å‡½æ•°,è¿”å›å€¼ä¸ç¡®å®š
 template<typename T>
 auto testFunction()
 {
-	auto value = T::test();//µ÷ÓÃÄÄ¸öº¯Êı²»È·¶¨£¬·µ»ØÖµÒ²²»È·¶¨
+	auto value = T::test();//è°ƒç”¨å“ªä¸ªå‡½æ•°ä¸ç¡®å®šï¼Œè¿”å›å€¼ä¹Ÿä¸ç¡®å®š
 	return value;
 }
 
@@ -53,13 +53,13 @@ int main(void)
 	{
 		cout << iter->first << "=" << iter->second << endl;
 	}
-	//¿ÉÒÔÊ¹ÓÃauto´úÌæÀàĞÍ
+	//å¯ä»¥ä½¿ç”¨autoä»£æ›¿ç±»å‹
 	for (auto iter=myMap.begin();iter!=myMap.end();iter++)
 	{
 		cout << iter->first << "=" << iter->second << endl;
 	}
 
-	//2.µ±Ã»ÓĞ°ì·¨È·¶¨ÀàĞÍµÄÊ±ºò£¬Ê¹ÓÃauto
+	//2.å½“æ²¡æœ‰åŠæ³•ç¡®å®šç±»å‹çš„æ—¶å€™ï¼Œä½¿ç”¨auto
 	cout << testFunction<TescClassA>() << endl;//0
 	cout << testFunction<TescClassB>() << endl;//0.12
 	
@@ -68,13 +68,14 @@ int main(void)
 	return 0;
 }
 /*
-* (1)autoÊÊÓÃ³¡ºÏ¾ÙÀı
-*	1.´úÌæºÜ³¤µÄÀàĞÍÃû×Ö£¬Èçµü´úÆ÷
-*	2.µ±Ã»ÓĞ°ì·¨È·¶¨ÀàĞÍµÄÊ±ºò£¬Ê¹ÓÃauto
-* (2)×Ü½á£º
-*	auto±íÃæÉÏÊÇÒ»¸ö¹Ø¼ü×Ö£¬Ò²¿ÉÒÔ¿´×÷Ò»¸öÇ¿´óµÄ¹¤¾ß£¬ÉÆÓÚÀûÓÃ¡£
-*	2019Äê12ÔÂ10ÈÕ
-*	20µã47·Ö
+* (1)autoé€‚ç”¨åœºåˆä¸¾ä¾‹
+*	1.ä»£æ›¿å¾ˆé•¿çš„ç±»å‹åå­—ï¼Œå¦‚è¿­ä»£å™¨
+*	2.å½“æ²¡æœ‰åŠæ³•ç¡®å®šç±»å‹çš„æ—¶å€™ï¼Œä½¿ç”¨auto
+* (2)æ€»ç»“ï¼š
+*	autoè¡¨é¢ä¸Šæ˜¯ä¸€ä¸ªå…³é”®å­—ï¼Œä¹Ÿå¯ä»¥çœ‹ä½œä¸€ä¸ªå¼ºå¤§çš„å·¥å…·ï¼Œå–„äºåˆ©ç”¨ã€‚
+*	dä½†æ˜¯æ»¥ç”¨çš„è¯ä¼šå¯¼è‡´ä»£ç å¾ˆéš¾è¯»æ‡‚ï¼Œå¾ˆéš¾ç†è§£ã€‚
+*	2019å¹´12æœˆ10æ—¥
+*	20ç‚¹47åˆ†
 * (5)
 * (6)(7)
 */
