@@ -4,7 +4,8 @@
 
 using namespace std;
 
-//ºóÖÃÓï·¨
+
+//å‡½æ•°è¿”å›ç±»å‹çš„åç½®è¯­æ³•
 auto func(int a,int b)->int
 {
 	return 0;
@@ -24,16 +25,20 @@ double myfunction01(double&i)
 	return i;
 }
 
-//º¯ÊıÄ£°å
+//å‡½æ•°æ¨¡æ¿
 template<typename T>
-auto myFunTemplate(T&tv)->decltype(myfunction01(tv))//·µ»ØÀàĞÍºóÖÃ£¬ÒªÏÖÓĞtv£¬²ÅÄÜÓÃtv£¬ÕâÀï±ØĞëÓÃ·µ»ØÀàĞÍºóÖÃÕâÖÖÓÃ·¨
+//decltype(myfunction01(tv))  myFunTemplate(T&tv) //errorï¼Œå› ä¸ºè¿”å›ç±»å‹å†™åœ¨å‰é¢ï¼Œä½†æ˜¯æ­¤æ—¶tvè¿˜æ²¡æœ‰(è¿™è´§åœ¨å‡½æ•°å½¢å‚é‡Œé¢çš„)
+auto myFunTemplate(T&tv)->decltype(myfunction01(tv))//è¿”å›ç±»å‹åç½®ï¼Œè¦å…ˆæœ‰tvï¼Œæ‰èƒ½ç”¨tvï¼Œè¿™é‡Œå¿…é¡»ç”¨è¿”å›ç±»å‹åç½®è¿™ç§ç”¨æ³•
+//æ³¨æ„ï¼šä¸Šé¢è¿™ä¸€è¡Œçš„autoå¹¶æ²¡æœ‰è‡ªåŠ¨ç±»å‹æ¨å¯¼çš„å«ä¹‰ï¼Œè¿™é‡Œå®ƒåªæ˜¯è¿”å›ç±»å‹åç½®è¯­æ³•çš„ç»„æˆéƒ¨åˆ†ã€‚
+//auto myFunTemplate(T&tv) //okï¼Œå¹¶ä¸”autoæœ‰è‡ªåŠ¨ç±»å‹æ¨å¯¼çš„å«ä¹‰
+
 {
 	return myfunction01(tv);
 }
 
 int main(void)
 {
-	//2.3decltypeµÄÖ÷ÒªÓÃÍ¾_decltype(auto)ÓÃ·¨
+	//2.3decltypeçš„ä¸»è¦ç”¨é€”_decltype(auto)ç”¨æ³•
 	int i = 12;
 	double d = 23.34;
 	cout << myFunTemplate(i) << endl;//12
@@ -44,7 +49,7 @@ int main(void)
 	return 0;
 }
 /*
-* (2)2.3decltypeµÄÖ÷ÒªÓÃÍ¾_auto½áºÏdecltype¹¹³É·µ»ØÀàĞÍºóÖÃÓï·¨
-*autoÕâÀïÃ»ÓĞ×Ô¶¯ÀàĞÍÍÆ¶ÏµÄÒâË¼£¬Ö»ÊÇ·µ»ØÀàĞÍºóÖÃÓï·¨µÄ×é³É²¿·Ö
+* (2)2.3decltypeçš„ä¸»è¦ç”¨é€”_autoç»“åˆdecltypeæ„æˆè¿”å›ç±»å‹åç½®è¯­æ³•
+*autoè¿™é‡Œæ²¡æœ‰è‡ªåŠ¨ç±»å‹æ¨æ–­çš„æ„æ€ï¼Œåªæ˜¯è¿”å›ç±»å‹åç½®è¯­æ³•çš„ç»„æˆéƒ¨åˆ†
 * 
 */
