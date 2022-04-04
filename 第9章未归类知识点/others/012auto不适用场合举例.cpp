@@ -5,22 +5,28 @@
 
 using namespace std;
 
-//ÏÔÊ¾²ÎÊıÀàĞÍ£¬ÕâÀï²»ÑĞ¾¿boost¿â
+//æ˜¾ç¤ºå‚æ•°ç±»å‹ï¼Œè¿™é‡Œä¸ç ”ç©¶booståº“
 template<typename T>
-void myFunction01(T&tem)//TÊÇÀàĞÍÄ£°å²ÎÊı£¬TÊÇÓĞÀàĞÍµÄ,temÊÇĞÎ²Î£¬temÒ²ÊÇÓĞÀàĞÍµÄ
+void myFunction01(T&tem)//Tæ˜¯ç±»å‹æ¨¡æ¿å‚æ•°ï¼ŒTæ˜¯æœ‰ç±»å‹çš„,temæ˜¯å½¢å‚ï¼Œtemä¹Ÿæ˜¯æœ‰ç±»å‹çš„
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 
 }
 
 class TescClass
 {
 public:
-	//auto m;//ÆÕÍ¨³ÉÔ±±äÁ¿²»¿ÉÒÔÊÇauto
-	static  const auto m2 = 23;//static const ¾²Ì¬³ÉÔ±¿ÉÒÔÊ¹ÓÃauto£¬ÆäÖµ±ØĞëÔÚÀàÄÚ³õÊ¼»¯
+	//auto m;//æ™®é€šæˆå‘˜å˜é‡ä¸å¯ä»¥æ˜¯auto
+	static  const auto m2 = 23;//static const é™æ€æˆå‘˜å¯ä»¥ä½¿ç”¨autoï¼Œå…¶å€¼å¿…é¡»åœ¨ç±»å†…åˆå§‹åŒ–
+	//static constå’Œæ™®é€šé™æ€æˆå‘˜å˜é‡ä¸ä¸€æ ·ï¼Œæ™®é€šé™æ€æˆå‘˜æ˜¯åœ¨è¿™é‡Œå£°æ˜çš„ï¼Œç„¶ååœ¨.cppä¸­å®šä¹‰å’Œåˆå§‹åŒ–çš„ã€‚
+	//static consté™æ€æˆå‘˜å°±åœ¨è¿™é‡Œå®šä¹‰å’Œåˆå§‹åŒ–äº†ã€‚
 };
+
+//void f(auto arg)//error
+//{
+//}
 
 
 int main(void)
@@ -30,9 +36,9 @@ int main(void)
 	return 0;
 }
 /*
-* (1)auto²»ÊÊÓÃ³¡ºÏ¾ÙÀı
-*	1.atuo²»ÄÜÊ¹ÓÃÓëº¯ÊıĞÎ²Î£¬±ÈÈçvoid myfunction(auto x)
-*	2.ÀàÖĞÆÕÍ¨³ÉÔ±±äÁ¿²»ÄÜÊ¹ÓÃauto ¡£static const ÔÊĞí£¬µ«ÊÇ±ØĞëÔÚÀàÄÚ³õÊ¼»¯
+* (1)autoä¸é€‚ç”¨åœºåˆä¸¾ä¾‹
+*	1.atuoä¸èƒ½ä½¿ç”¨ä¸å‡½æ•°å½¢å‚ï¼Œæ¯”å¦‚void myfunction(auto x)
+*	2.ç±»ä¸­æ™®é€šæˆå‘˜å˜é‡ä¸èƒ½ä½¿ç”¨auto ã€‚static const å…è®¸ï¼Œä½†æ˜¯å¿…é¡»åœ¨ç±»å†…åˆå§‹åŒ–
 *	
 * (4)
 * (5)
