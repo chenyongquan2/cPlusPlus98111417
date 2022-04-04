@@ -2,7 +2,7 @@
 #include<cstdlib>
 #include <boost/type_index.hpp>
 using namespace std;
-//��ͨ����
+//普通函数
 void myFunction(int value01,int value02)
 {
 	++value02;
@@ -10,7 +10,7 @@ void myFunction(int value01,int value02)
 	return;
 }
 
-//��ֵ����
+//左值引用
 void myFunction02(int value01, int &value02)
 {
 	++value02;
@@ -18,7 +18,7 @@ void myFunction02(int value01, int &value02)
 	return;
 }
 
-//��Ϊ��ֵ����
+//改为右值引用
 void myFunction03(int &&value01, int &value02)
 {
 	++value02;
@@ -27,100 +27,139 @@ void myFunction03(int &&value01, int &value02)
 }
 
 
-//ģ�庯����Ҫ���յ��Ĳ����Լ���Щ�������Ӧ�Ĳ������ֲ���ת��Ϊ��������myFunction  --�����ת��
+//模板函数，要把收到的参数以及这些参数相对应的类型（比如左值引用还是右值引用，比如const）保持不变转发为其他函数myFunction  --这就是转发
 template<typename F,typename T1,typename T2>
-void myFunctionTramsmit(F f,T1 t1,T2 t2)//F����Ҫ���õĵ���������,Ҫת����Ŀ�꺯��
+//相当于要通过myFunctionTramsmit()函数来转发。
+void myFunctionTramsmit(F f,T1 t1,T2 t2)//F就是要调用的第三方函数,要转发的目标函数
 {
 	f(t1, t2);
 	
 
 }
 
-//������ģ���Ϊ������������
+//将函数模板改为万能引用类型
 template<typename F, typename T1, typename T2>
-void myFunctionTramsmit02(F f, T1&& t1, T2 &&t2)//F����Ҫ���õĵ���������,Ҫת����Ŀ�꺯��
+void myFunctionTramsmit02(F f, T1&& t1, T2 &&t2)//F就是要调用的第三方函数,要转发的目标函数
 {
-	/*����������еĵ���myFunctionTramsmit02(myFunction02, 34, i);
-	 *T1=int, t1=int&&  t1����ֵ�������ͣ�t1��������ֵ
-	 *T2=int&,t2=int&
+	/*针对主函数中的调用myFunctionTramsmit02(myFunction02, 34, i);
+	 *T1=int, t1=int&&  t1是右值引用类型，t1本身是左值
+	 *T2=int&,t2=int& && =》int&
 	 * 
 	 */
-	//f(t1, t2);
-	//��void(int &&, int &)��: �޷������� 1 �ӡ�int��ת��Ϊ��int &&��
-	//���ô�����һ����ֵ������ͨ����������ת��Ϊһ����ֵ�ˣ�t1������һ����ֵ�����Ǻ���myFunction03��Ҫ����һ����ֵ
+	//f(t1, t2);//t1是左值，而myFunction03里边的v1类型是个右值引用，注定myFunction03里的t1要绑定一个右值，所以出错
+	//“void(int &&, int &)”: 无法将参数 1 从“int”转换为“int &&”
+	//调用处需要的是一个右值，但是myFunctionTramsmit02通过万能引用转换为一个左值了，t1本身是一个左值，但是函数myFunction03需要的是一个右值
 	f(std::forward<T1>(t1), std::forward<T2>(t2));
-	//t1��ԭ������ֵ������ֵ��Ϣ������T1ģ������У�����Ὣt1ת��Ϊԭʼʵ�ε���ֵ����
+	//t1中原来是左值还是右值信息存在在T1模板参数中，这里会将t1转换为原始实参的右值类型
+}
+/////////
+void printInfo(int &t)
+{
+	cout << "传递来的是左值引用" << endl;
+}
+void printInfo(int &&t)
+{
+	cout << "传递来的是右值引用" << endl;
+}
+
+template<typename T>
+void TestF(T&& t)//万能引用
+{
+	printInfo(t);
+	printInfo(std::forward<T>(t));
+	printInfo(std::move(t));
+}
+
+void f11()
+{
+	TestF(10);//打印:左值引用，右值引用，右值引用
+	int i = 10;
+	TestF(i);//打印:左值引用，左值引用，右值引用
+}	
+
+///////
+
+template<typename T>
+void TestF(T&& t)//万能引用
+{
+	printInfo(t);
+	printInfo(std::forward<T>(t));
+	printInfo(std::move(t));
 }
 
 int main(void)
 {	int i = 50;
 	myFunction(34, i);
 
-	//ͨ��ת����������
+	//通过转发函数调用
 	myFunctionTramsmit(myFunction, 34, i);
-	myFunctionTramsmit(myFunction02, 34, i);//���ﷵ�غ�i=50,����������������51.Ҳ����˵��T2��û��ʵ����Ϊint&����
-	//void myFunctionTramsmit(void(*f)(int,int&),int t1,, int t2){}//ʵ����������ӣ�t2��������������������ݹ�ȥ��������
-	//��ô�޸Ĵ��ݺ�������ģ�庯���Ĳ����ܹ����ָ���ʵ�ε���ֵ�ԣ�i��const����Ҳ���ݵ�ģ�庯���У���������
+ 	//myFunction02(34,i);//ok,出来后，i变成了51.
+	myFunctionTramsmit(myFunction02, 34, i);//这里返回后i=50,并不是我们期望的51.也就是说，T2并没有实例化为int&类型
+	//void myFunctionTramsmit(void(*f)(int,int&),int t1,, int t2){}//实例化后的样子，t2这个参数并不是真正传递过去引用类型
+	//怎么修改传递函数，让模板函数的参数能够保持给定实参的左值性等参数的属性（i有const属性也传递到模板函数中）
 	/*
-	 *��������  T&& ����ʵ��i���������ԣ��Ӷ��ñ������Ƶ���������ģ�����յ��β�����
-	 *���ʹ��T&��ͨ���ã���ʵ����ֻ��const���Կ��Դ��ݵ�����ģ�壬��ʵ���е���ֵ����ֵ�ԾͲ��ܴ��ݵ�����ģ��
+	 *万能引用  T&& 保存实参i的所有属性，从而让编译器推导出来函数模板最终的形参类型。(可能会发生引用折叠。)
+	 *如果使用T& 普通引用，则实参中只有const属性可以传递到函数模板，而实参中的左值和右值性就不能传递到函数模板
 	 * 
 	 */
 
-	//�������ú����
-	myFunctionTramsmit02(myFunction02, 34, i);//i��ֵ��51
+	//万能引用后调用
+	myFunctionTramsmit02(myFunction02, 34, i);//i的值是51
 
-	//��ֵ����
-	int &&number01 = 80;//��ֵ���ð���ֵ
+	//右值引用
+	int &&number01 = 80;//右值引用绑定右值
+ 	int &z = number01;//不报错 
 	/*
-	 * ��Ȼ&&number01�ǰ󶨵���ֵ�ģ�����number01�����Ǹ���ֵ����Ϊnumber01�����ڵȺ���ߡ�
-	 * &&number01����ֵ���ã�number01�Ǹ���ֵ�����ڴ����е�ַ��
-	 * number01�����Ǹ���ֵ������������������ֵ���á�Ҳ����˵��ֵ���ã���ֵ���ø���˵�����������͡�
-	 *void myFunctionTramsmit02(F f, T1&& t1, T2 &&t2)�����β��еı���������ֵ��������������ֵ����
+	 * 虽然&&number01是绑定到右值的，但是number01本身是个左值，因为number01本在在等号左边。
+	 * &&number01叫右值引用，number01是个左值（因为这货是在等号左边待着的），在内存中有地址。
+	 * number01本身是个左值，但是他的类型是右值引用。也就是说左值引用，右值引用概念说的是他的类型，而不是它本身。
+	 *void myFunctionTramsmit02(F f, T1&& t1, T2 &&t2)函数形参中的变量t1 t2都是左值，即使它的本身类型是右值引用
 	 */
-	//myFunction03(number01, i);//error��ʵ����Ҫ����ֵ��number01��������һ����ֵ���β�����һ����ֵ���ã������һ����ֵ
+	//myFunction03(number01, i);//error，myFunction03的第一个参数是个右值引用，要接受一个右值。实参中要给右值，number01本质上是一个左值，形参中是一个右值引用，必须绑定一个右值
 	int j = 50;
-	myFunctionTramsmit02(myFunction03, 20, j);
+	myFunctionTramsmit02(myFunction03, 20, j
+			     
+	f11();
 	
 	system("pause");
 	return 0;
 }
 /*
-* (1)ת��������ת��
-*	ͨ������ָ����ú��������Ѻ���������Ϊ�������ݣ�����ת����
+* (1)转发和完美转发
+*	通过函数指针调用函数，并把函数参数作为参数传递，就是转发。
 *
-*	����ת���������ǿ���д������������ʵ�εĺ���ģ�壬������ת����Ŀ�꺯����
-*		Ŀ�꺯������յ���ת�����������յ��Ĳ���������ȫ��ͬ����ֵ�ԣ���ֵ�ԣ�
-*		ͨ��std::forword()��ʵ��
+*	完美转发：让我们可以写接受任意类型实参的函数模板，并将其转发到目标函数，
+*		目标函数会接收到与转发函数所接收到的参数类型完全相同（左值性，右值性都要保持）
+*		通过std::forword()来实现
 *	
 * (2)std::forward()
-*	c++11�е��º�����ר��Ϊת�������ڡ�
-*	��Ҫô����һ����ֵ��Ҫô����һ����ֵ��
-*	ʹ��������
-*		����ģ�庯����ģ�庯�������������������ͣ�ģ���������ת��
+*	c++11中的新函数，专门为转发而存在。
+*	它要么返回一个左值，要么返回一个右值。
+*	使用条件：
+*		调用模板函数，模板函数参数是万能引用类型，模板参数负责转发。
 *		void myFunctionTramsmit02(F f, T1&& t1, T2 &&t2)
 *		f(std::forward<T1>(t1), std::forward<T2>(t2));
-*		void myFunction03(int &&value01, int &value02)//value01Ҫ��һ����ֵ
-*		//����
+*		void myFunction03(int &&value01, int &value02)//value01要绑定一个右值
+*		//调用
 *		myFunctionTramsmit02(myFunction03, 20, j);
-*	std::forword()���������ǰ���ʵ�α���������ת����
-*		1.ʵ��ԭ������ֵ�����β��л�����ֵ,forward�ǰ����β�ԭ�������ʹ���������std::forward����������ֵ
-*		2.ʵ��ԭ������ֵ�����β��б����ֵ,forward�ǰ����β�ԭ�������ʹ���������std::forward�������Ǹ���ֵ
-*		�������￴��std::forward()��ǿ�ư���ֵת��Ϊ��ֵ������������forward()��ʵֻ��ԭ������ֵ��������á�
+*	std::forword()的能力就是按照实参本身的类型转发。
+*		1.实参原来是左值，到形参中还是左值,forward是按照实参原来的类型处理，所以std::forward处理后还是左值
+*		2.实参原来是右值，到形参中变成左值,forward是按照实参原来的类型处理，所以std::forward处理后是个右值
+*		所以这里看来std::forward()有强制把左值转换为右值的能力，所以forward()其实只对原来是右值的情况有用。
 *
-*		std::forward()���������Ǳ���ԭʼʵ�ε����ͣ���ֵ������ֵ��
-* (3)����ת������α���ԭʼʵ�ε���ֵ����ֵ��Ϣ��
-*	�Ǳ�����ת������������ģ���У���ģ�����T�У�����ת�������Ĳ������ͱ����������������͡�
-* (4)�ܽ�
-*forward��ǿ�ư�һ����ֵת��Ϊ��ֵ��������ԭʼ�βξ���һ����ֵ�����ҵ�forwardɶҲ���ɣ�
-*move()������ǿ������ת����ת����ԭʼ�������ֲ���ʹ�á�
+*		std::forward()的能力就是保持原始实参的类型（左值还是右值）
+* (3)完美转发是如何保存原始实参的左值和右值信息？
+*	是保存在转发函数（函数模板中）的万能引用里边的 模板参数T中，所以转发函数的参数类型必须是万能引用类型。
+* (4)总结
+*forward是强制把一个左值转换为右值，如果你的原始实参 就是一个左值，那我的forward啥也不干，(有条件的转换)
+*move()无条件强制类型转换成右值，（右值转换无用）转换后原始对象名字不能使用。
 * 
-* (5)��̸��������
-*	�������ò���һ���µ��������͡���һ�ֳ����д���������������ø���Ĵ�����������ġ�
+* (5)再谈万能引用
+*	万能引用不是一种新的引用类型。是一种程序的写法。但是万能引用概念的存在是有意义的。
 * 
-* 1.ת������
-* 2.��ֵ����ֵ
-* 3.����ת��std::forward()
+* 1.转发函数
+* 2.左值和右值
+* 3.完美转发std::forward()
  
 * (6)
 */
