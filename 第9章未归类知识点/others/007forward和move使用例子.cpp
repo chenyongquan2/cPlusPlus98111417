@@ -4,46 +4,54 @@
 using namespace std;
 
 
-void printInformation(int&tem)//ÀàĞÍÊÇ×óÖµÒıÓÃµÄĞÎ²Î
+void printInformation(int&tem)//ç±»å‹æ˜¯å·¦å€¼å¼•ç”¨çš„å½¢å‚
 {
-	cout << "ĞÎ²ÎÀàĞÍÎª×óÖµÒıÓÃµÄº¯Êı" << endl;
+	cout << "å½¢å‚ç±»å‹ä¸ºå·¦å€¼å¼•ç”¨çš„å‡½æ•°" << endl;
 }
-void printInformation(int&&tem)//ÀàĞÍÊÇ×óÖµÒıÓÃµÄĞÎ²Î
+void printInformation(int&&tem)//ç±»å‹æ˜¯å·¦å€¼å¼•ç”¨çš„å½¢å‚
 {
-	cout << "ĞÎ²ÎÀàĞÍÎªÓÒÖµÒıÓÃµÄº¯Êı" << endl;
+	cout << "å½¢å‚ç±»å‹ä¸ºå³å€¼å¼•ç”¨çš„å‡½æ•°" << endl;
 }
 
 template<typename T>
-void testTransmit(T&&t)//ÍòÄÜÒıÓÃ
+void testTransmit(T&&t)//ä¸‡èƒ½å¼•ç”¨
 {
-	printInformation(t);//Èç¹ûtÊÇÓÒÖµ£¬T=int t=int&&ÀàĞÍ£¬t±¾ÉíÊÇ×óÖµ	Èç¹ûtÊÇ×óÖµ£¬T=int&,t=int&ÀàĞÍ£¬t±¾ÉíÊÇ×óÖµ
+	printInformation(t);//å¦‚æœtæ˜¯å³å€¼ï¼ŒT=int t=int&&ç±»å‹ï¼Œtæœ¬èº«æ˜¯å·¦å€¼	å¦‚æœtæ˜¯å·¦å€¼ï¼ŒT=int&,t=int&ç±»å‹ï¼Œtæœ¬èº«æ˜¯å·¦å€¼
 	printInformation(std::forward<T>(t));
-	printInformation(std::move(t));//move½«×óÖµ×ª»»ÎªÓÒÖµ
+	printInformation(std::move(t));//moveå°†å·¦å€¼è½¬æ¢ä¸ºå³å€¼
 	
+}
+
+void f12()
+{
+	int i = 10;
+	//std::forward<T>è¦è½¬æˆå•¥æ ·ï¼Œå–å†³äºTçš„ç±»å‹
+	int&& ir1 = std::forward<int>(i);//forwardè¿™é‡ŒæˆåŠŸæŠŠiè½¬æ¢æˆå³å€¼
+	int& ir2 = std::forward<int &>(i);
 }
 
 int main(void)
 {
-	testTransmit(1);//´«µİÓÒÖµ
+	testTransmit(1);//ä¼ é€’å³å€¼
 	/*
-	 *  ĞÎ²ÎÀàĞÍÎª×óÖµÒıÓÃµÄº¯Êı
-		ĞÎ²ÎÀàĞÍÎªÓÒÖµÒıÓÃµÄº¯Êı
-		ĞÎ²ÎÀàĞÍÎªÓÒÖµÒıÓÃµÄº¯Êı
+	 *  å½¢å‚ç±»å‹ä¸ºå·¦å€¼å¼•ç”¨çš„å‡½æ•°
+		å½¢å‚ç±»å‹ä¸ºå³å€¼å¼•ç”¨çš„å‡½æ•°
+		å½¢å‚ç±»å‹ä¸ºå³å€¼å¼•ç”¨çš„å‡½æ•°
 	 */
 
 	int i = 123;
-	testTransmit(i);//´«µİ×óÖµ
+	testTransmit(i);//ä¼ é€’å·¦å€¼
 	/*
 
-	ĞÎ²ÎÀàĞÍÎª×óÖµÒıÓÃµÄº¯Êı
-	ĞÎ²ÎÀàĞÍÎª×óÖµÒıÓÃµÄº¯Êı
-	ĞÎ²ÎÀàĞÍÎªÓÒÖµÒıÓÃµÄº¯Êı
+	å½¢å‚ç±»å‹ä¸ºå·¦å€¼å¼•ç”¨çš„å‡½æ•°
+	å½¢å‚ç±»å‹ä¸ºå·¦å€¼å¼•ç”¨çš„å‡½æ•°
+	å½¢å‚ç±»å‹ä¸ºå³å€¼å¼•ç”¨çš„å‡½æ•°
 	 */
 	system("pause");
 	return 0;
 }
 /*
- * (1)std::forward()Ğ¡Àı×Ó
+ * (1)std::forward()å°ä¾‹å­
  * (2)
  * (3)
  * (4)
