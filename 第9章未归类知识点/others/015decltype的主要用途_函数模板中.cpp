@@ -4,14 +4,14 @@
 
 using namespace std;
 
-//2.1Ó¦¸¶¿É±äÀàĞÍ--Ò»°ãÓ¦ÓÃÓÚÄ£°åÀàĞÍ±à³ÌÖĞ
+//2.1åº”ä»˜å¯å˜ç±»å‹--ä¸€èˆ¬åº”ç”¨äºæ¨¡æ¿ç±»å‹ç¼–ç¨‹ä¸­
 template<typename T>
 class CT
 {
 public:
-	//typename T::iterator iter;//µü´úÆ÷ÀàĞÍ
-	decltype(T().begin())  iter;//Èç¹ûTÀàĞÍÊÇconst std::vector<int>£¬·µ»Ø³£Á¿µü´úÆ÷ÀàĞÍ
-	//const std::vector<int>()±íÊ¾Éú³É¸ÃÀàĞÍµÄÁÙÊ±¶ÔÏó(¼ÓÀ¨ºÅ)£¬µ÷ÓÃÁÙÊ±¶ÔÏóµÄbegin()£¬µÃµ½Ò»¸ö³£Á¿µü´úÆ÷
+	//typename T::iterator iter;//è¿­ä»£å™¨ç±»å‹
+	decltype(T().begin())  iter;//å¦‚æœTç±»å‹æ˜¯const std::vector<int>ï¼Œè¿”å›å¸¸é‡è¿­ä»£å™¨ç±»å‹
+	//const std::vector<int>()è¡¨ç¤ºç”Ÿæˆè¯¥ç±»å‹çš„ä¸´æ—¶å¯¹è±¡(åŠ æ‹¬å·)ï¼Œè°ƒç”¨ä¸´æ—¶å¯¹è±¡çš„begin()ï¼Œå¾—åˆ°ä¸€ä¸ªå¸¸é‡è¿­ä»£å™¨
 	void getBegin(T&tem)
 	{
 		iter = tem.begin();
@@ -20,12 +20,12 @@ public:
 	CT(){}
 };
 
-//ÀàÄ£°åÆ«ÌØ»¯
+//ç±»æ¨¡æ¿åç‰¹åŒ–(æ˜¯ä¸Šé¢çš„ç±»æ¨¡æ¿çš„ç‰¹åŒ–ç‰ˆæœ¬)
 //template<typename T>
 //class CT<const T>
 //{
 //public:
-//	typename T::const_iterator iter;//µü´úÆ÷ÀàĞÍ
+//	typename T::const_iterator iter;//è¿­ä»£å™¨ç±»å‹
 //	void getBegin(T&tem)
 //	{
 //		iter = tem.begin();
@@ -34,31 +34,34 @@ public:
 
 int main(void)
 {
-	//2.1Ó¦¸¶¿É±äÀàĞÍ--Ò»°ãÓ¦ÓÃÓÚÄ£°åÀàĞÍ±à³ÌÖĞ
+	//2.1åº”ä»˜å¯å˜ç±»å‹--ä¸€èˆ¬åº”ç”¨äºæ¨¡æ¿ç±»å‹ç¼–ç¨‹ä¸­
 	//using conttype =std::vector<int>;
 	using conttype =const std::vector<int>;
 	
-	conttype myVector = { 12,23,34 };//¶¨Òå¸Ã±äÁ¿ÀàĞÍ£¬myVectorÊÇ¸öÈİÆ÷
+	conttype myVector = { 12,23,34 };//å®šä¹‰è¯¥å˜é‡ç±»å‹ï¼ŒmyVectoræ˜¯ä¸ªå®¹å™¨
 	CT<conttype>ct;
 	ct.getBegin(myVector);
 
-	//³£À´ÈİÆ÷±éÀúÊ¹ÓÃ³£Á¿µü´úÆ÷
+	//å¸¸æ¥å®¹å™¨éå†ä½¿ç”¨å¸¸é‡è¿­ä»£å™¨
 	const std::vector<int> myvector02 = { 23,345,45 };
 	vector<int>::const_iterator iter = myvector02.begin();
+	
+	CT<decltype(myvector02)> myIterTest2;
+	myIterTest2.getBegin(vec2);
 	
 	system("pause");
 	return 0;
 }
 /*
-* (1)decltypeµÄÖ÷ÒªÓÃÍ¾
-*		2.1Ó¦¸¶¿É±äÀàĞÍ--Ò»°ãÓ¦ÓÃÓÚÄ£°åÀàĞÍ±à³ÌÖĞ
-*			Éú³ÉÁÙÊ±¶ÔÏóÊ¹ÓÃdecltype»ñÈ¡ÀàĞÍ
+* (1)decltypeçš„ä¸»è¦ç”¨é€”
+*		2.1åº”ä»˜å¯å˜ç±»å‹--ä¸€èˆ¬åº”ç”¨äºæ¨¡æ¿ç±»å‹ç¼–ç¨‹ä¸­
+*			ç”Ÿæˆä¸´æ—¶å¯¹è±¡ä½¿ç”¨decltypeè·å–ç±»å‹
 * (2)
 * (3)
 * (4)
 * (5)
 * (6)(7)
-* ´íÎó£¬vs2015Ã»ÄÜ±àÒëÍ¨¹ı£¬²»ÖªµÀvs2017ÄÜ·ñ±àÒëÍ¨¹ı
-*	¶ş½øÖÆ¡°=¡±: Ã»ÓĞÕÒµ½½ÓÊÜ¡°std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int>>>¡±ÀàĞÍµÄÓÒ²Ù×÷ÊıµÄÔËËã·û(»òÃ»ÓĞ¿É½ÓÊÜµÄ×ª»»)	others	e:\projectcode\µÚ9ÕÂÎ´¹éÀàÖªÊ¶µã\others\Ô´15.cpp	17	
-
+* é”™è¯¯ï¼Œvs2015æ²¡èƒ½ç¼–è¯‘é€šè¿‡ï¼Œä¸çŸ¥é“vs2017èƒ½å¦ç¼–è¯‘é€šè¿‡
+*	äºŒè¿›åˆ¶â€œ=â€: æ²¡æœ‰æ‰¾åˆ°æ¥å—â€œstd::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<int>>>â€ç±»å‹çš„å³æ“ä½œæ•°çš„è¿ç®—ç¬¦(æˆ–æ²¡æœ‰å¯æ¥å—çš„è½¬æ¢)	others	e:\projectcode\ç¬¬9ç« æœªå½’ç±»çŸ¥è¯†ç‚¹\others\æº15.cpp	17	
+	c++98è¦è§£å†³è¿™ç§é—®é¢˜ï¼Œå°±è¦å†™ç±»æ¨¡æ¿åç‰¹åŒ–ã€‚
 */
