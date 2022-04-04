@@ -7,17 +7,17 @@ using namespace std;
 
 int main(void)
 {
-	//2.2decltypeµÄÖ÷ÒªÓÃÍ¾_Í¨¹ı±äÁ¿±í´ïÊ½³éÈ¡±äÁ¿ÀàĞÍ
+	//2.2decltypeçš„ä¸»è¦ç”¨é€”_é€šè¿‡å˜é‡è¡¨è¾¾å¼æŠ½å–å˜é‡ç±»å‹
 	vector<int> myV;
 	myV.push_back(1);
 	myV.push_back(2);
 	myV.push_back(3);
 	vector<int>::size_type mySize = myV.size();
 	cout << mySize << endl;//3
-	decltype(myV)::size_type mysize02 = mySize;//³éÈ¡myVµÄÀàĞÍ£¬
+	decltype(myV)::size_type mysize02 = mySize;//æŠ½å–myVçš„ç±»å‹ï¼Œè¿™ä¸€è¡Œç›¸å½“äº vector<int>::size_type mysize02 = mySize;
 	cout << mysize02 << endl;//3
 
-	typedef decltype(sizeof(0)) size__t;//µÈ¼ÛÓësize__tÊÇintÀàĞÍ
+	typedef decltype(sizeof(0)) size__t;//ç­‰ä»·ä¸size__tæ˜¯intç±»å‹
 	/*
 	 * typedef decltype(sizeof(int)) size__t
 	 * typedef unsigned int size__t
@@ -27,6 +27,6 @@ int main(void)
 	return 0;
 }
 /*
-* 2.2decltypeµÄÖ÷ÒªÓÃÍ¾_Í¨¹ı±äÁ¿±í´ïÊ½³éÈ¡±äÁ¿ÀàĞÍ
+* 2.2decltypeçš„ä¸»è¦ç”¨é€”_é€šè¿‡å˜é‡è¡¨è¾¾å¼æŠ½å–å˜é‡ç±»å‹
 *
 */
