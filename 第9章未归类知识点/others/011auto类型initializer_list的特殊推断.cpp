@@ -5,50 +5,57 @@
 
 using namespace std;
 
-//ÏÔÊ¾²ÎÊıÀàĞÍ£¬ÕâÀï²»ÑĞ¾¿boost¿â
+//æ˜¾ç¤ºå‚æ•°ç±»å‹ï¼Œè¿™é‡Œä¸ç ”ç©¶booståº“
 template<typename T>
-void myFunction01(T&tem)//TÊÇÀàĞÍÄ£°å²ÎÊı£¬TÊÇÓĞÀàĞÍµÄ,temÊÇĞÎ²Î£¬temÒ²ÊÇÓĞÀàĞÍµÄ
+void myFunction01(T&tem)//Tæ˜¯ç±»å‹æ¨¡æ¿å‚æ•°ï¼ŒTæ˜¯æœ‰ç±»å‹çš„,temæ˜¯å½¢å‚ï¼Œtemä¹Ÿæ˜¯æœ‰ç±»å‹çš„
 {
 	using boost::typeindex::type_id_with_cvr;
-	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "T type=" << type_id_with_cvr<T>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "tem type=" << type_id_with_cvr<decltype(tem)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 
+}
+
+template<typename T>
+void myFunction02(T tem)
+{
 }
 
 
 
 int main(void)
 {
-	//c++98Ö§³ÖµÄ³õÊ¼»¯·½Ê½
+	//c++98æ”¯æŒçš„åˆå§‹åŒ–æ–¹å¼
 	int number01 = 10;
 	int number02(23);
-	//c++11Ö§³ÖµÄ³õÊ¼»¯·½Ê½
+	//c++11æ”¯æŒçš„åˆå§‹åŒ–æ–¹å¼
 	int number03 = { 23 };
 	int number04{ 234 };
-	//Ìæ»»Îªauto¿ÉÒÔÂğ£¿£¿
+	//æ›¿æ¢ä¸ºautoå¯ä»¥å—ï¼Ÿï¼Ÿ
 
 	auto number05 = 23;//ok
 	auto number06(23);
-	auto number07 = { 23 };//class std::initializer_list<int>  autoÓö¼û{}ÍÆµ¼¹æÔò²»Ò»Ñù
+	auto number07 = { 23 };//class std::initializer_list<int>  autoé‡è§{}æ¨å¯¼è§„åˆ™ä¸ä¸€æ ·
 	auto number08{ 23 };
 	using boost::typeindex::type_id_with_cvr;
-	cout << "number07 type=" << type_id_with_cvr<decltype(number07)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
-	cout << "number08 type=" << type_id_with_cvr<decltype(number08)>().pretty_name() << endl;//ÏÔÊ¾TÀàĞÍ
+	cout << "number07 type=" << type_id_with_cvr<decltype(number07)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
+	cout << "number08 type=" << type_id_with_cvr<decltype(number08)>().pretty_name() << endl;//æ˜¾ç¤ºTç±»å‹
 	/*
-	 *  number07 type=class std::initializer_list<int>Ò»¸öÀàÄ£°å
+	 *  number07 type=class std::initializer_list<int>ä¸€ä¸ªç±»æ¨¡æ¿,è¡¨ç¤ºæŸç§ç±»å‹å€¼çš„æ•°ç»„ã€‚
 		number08 type=int
 	 */
 
-	auto number09 = { 23,345 };//ËùÓĞµÄÀàĞÍÒªÒ»ÖÂ£¬ĞèÒª½øĞĞ¶ş´ÎÍÆµ¼£¬ÏÈÍÆµ¼auto=int,ÔÙÍÆµ¼³öÀàÄ£°åÀàĞÍ
+	auto number09 = { 23,345 };//æ‰€æœ‰çš„ç±»å‹è¦ä¸€è‡´ï¼Œéœ€è¦è¿›è¡ŒäºŒæ¬¡æ¨å¯¼ï¼Œå…ˆæ¨å¯¼auto=initializer_list<T>,å†æ¨å¯¼å‡ºç±»æ¨¡æ¿ç±»å‹T
+	//è¿™ç§æ¨å¯¼åªé€‚åˆautoï¼Œä¸é€‚åˆæ¨¡æ¿ç±»å‹ã€‚è¿™ä¸€ç‚¹æ˜¯autoç±»å‹æ¨¡æ¿æ¨å¯¼å’Œæ¨¡æ¿ç±»å‹æ¨å¯¼çš„åŒºåˆ«ä¹‹å¤„ã€‚å…¶ä»–æ–¹é¢ï¼Œautoæ¨å¯¼å’Œæ¨¡æ¿ç±»å‹æ¨å¯¼å·®ä¸å¤šã€‚
 	
+	//myFunction02({20});//error
 	
 	system("pause");
 	return 0;
 }
 /*
-* (1)autoÀàĞÍstd::initializer_listµÄÌØÊâÍÆ¶Ï
-*	class std::initializer_list<int> c++ÖĞÒıÈëµÄÀàÄ£°å£¬±íÊ¾Ä³ÖÖÌØ¶¨µÄÖµµÄÊı×é
-* (2)auto»¹¿ÉÒÔ·ÅÔÚº¯Êı·µ»ØÖµÀàĞÍ£¬ÒÔºó½²¡£
+* (1)autoç±»å‹std::initializer_listçš„ç‰¹æ®Šæ¨æ–­
+*	class std::initializer_list<int> c++ä¸­å¼•å…¥çš„ç±»æ¨¡æ¿ï¼Œè¡¨ç¤ºæŸç§ç‰¹å®šçš„å€¼çš„æ•°ç»„
+* (2)autoè¿˜å¯ä»¥æ”¾åœ¨å‡½æ•°è¿”å›å€¼ç±»å‹ï¼Œä»¥åè®²ã€‚
 * (4)
 * (5)
 * (6)(7)
