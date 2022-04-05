@@ -7,15 +7,15 @@ using namespace std;
 
 int main(void)
 {
-	auto f1 = [] {};//f1���൱��һ��δ�������� ���Ͷ���
+	auto f1 = [] {};//f1就相当于一个未命名的类 类型对象
 
 	int x = 5;
 	auto f2 = [=]()
 	{
 		return x;
-	};//f2Ҫ����һ�������ͱ�������Щ������ⲿ����Ҫ�����ڲ���Ϊ��Ա�������ڡ�
+	};//f2要生成一个类类型变量，这些捕获的外部变量要在类内部作为成员变量存在。
 
-	//lambda��function���ʹ������
+	//lambda和function结合使用例子
 	std::function<int(int)>f3 = [](int value)->int
 	{
 		value++;
@@ -30,11 +30,11 @@ int main(void)
 		
 	},placeholders::_1
 	);
-	//bind��һ�������ǿɵ��ö�����ߺ���ָ�룬�ڶ��������Ǻ�������
+	//bind第一个参数是可调用对象或者函数指针，第二个参数是函数参数
 	cout << f4(23) << endl;//24
 
-	//�����б�Ϊ�յ�lambda����ʽ������ת����һ����ͨ�ĺ���ָ�롣
-	using funcpType = int(*)(int);//����һ������ָ������
+	//捕获列表为空的lambda表达式，可以转换成一个普通的函数指针。
+	using funcpType = int(*)(int);//定义一个函数指针类型
 	funcpType fp = [](int value) {return value + 1; };
 	cout << fp(123) << endl;//124
 	
@@ -42,24 +42,24 @@ int main(void)
 	return 0;
 }
 /*
-* (1)lambda����ʽ�����ͺʹ洢
-* c++11��lambda����ʽ�����ͱ���Ϊ���հ����ͣ�closure type������
-* �հ�--�����ڲ��ĺ������ɵ��ö��󣩣������Ͼ���lambda����ʽ����������ʱ�ڵĶ���
-* lambda����ʽ��һ�ֱȽ�����ģ������ģ��� ���ͣ��հ��ࣩ�Ķ���
-* ����Ҳ������Ϊ����һ������operator()���͵Ķ���Ҳ���Ƿº�������������
+* (1)lambda表达式的类型和存储
+* c++11中lambda表达式的类型被成为“闭包类型（closure type）”。
+* 闭包--函数内部的函数（是一个可调用对象），本质上就是lambda表达式创建的运行时期的对象。
+* lambda表达式是一种比较特殊的，匿名的，类类型（闭包类）的对象。（也就是定义了一个类类型，又生成了一个匿名的改变类型的对象[闭包 ]）
+* 我们也可以认为他是一个带有operator()类型的对象。也就是仿函数（函数对象）
 *
-* �������ǿ���ʹ��std::function  std::bind������͵���lambda����ʽ��ÿ��lambda����
-* ��������������һ����һ�޶��������͡�
+* 所以我们可以使用std::function  std::bind来保存和调用lambda表达式，每个lambda都会
+* 触发编译器生成一个独一无二的类类型。
 * 
-* lambda����ʽ�����﷨���ǿ��Ծ͵ض��������������͵ط�װ��С�Ĺ��ܱհ���
+* lambda表达式这种语法我们可以就地定义匿名函数，就地封装短小的功能闭包。
 * 
-* (2)�﷨�ǵĸ���
-*	����һ�ֱ��д��
+* (2)语法糖的概念
+*	就是一种便捷写法
 *	int a[4];
-*	a[0]=5;//�������ڲ���д��*(a+0)=5;
-*	�﷨�ǵ�Ŀ�ľ���������д�Ĵ�����Ӽ򵥣��������⣬���ٴ�������Ļ��ʡ�
-*	�﷨���ǻ����������е����ԣ�������һ��������ʹ���������򵥣�����û���������Ե�ԭ�й��ܡ�
-*	lambda����ʽ���Կ��ƶ���º����հ��������к��������﷨�ǡ�
+*	a[0]=5;//编译器内部的写法*(a+0)=5;
+*	语法糖的目的就是让我们写的代码更加简单，容易理解，减少代码出错的机率。
+*	语法糖是基于语言现有的特性，构建出一个东西，使用起来更简单，但是没有增加语言的原有功能。
+*	lambda表达式可以堪称定义仿函数闭包（函数中函数）的语法糖。
 * (3)
 * (4)
 * (5)
