@@ -66,7 +66,7 @@ TestClass DoubleTestClass(TestClass&tc)
 	TestClass te(0,0);//会产生一次构造函数和析构函数的调用
 	te.value01 = tc.value01 * 2;
 	te.value02 = tc.value02 * 2;
-	return te;	//1.调用了拷贝构造函数，产生一个临时对象tmp（用来返回）；
+	return te;	//1.调用了拷贝构造函数/拷贝赋值运算符(取决于外面接受它的变量)，产生一个临时对象tmp（用来返回）；
 	//2.退出函数作用域te被析构；
 	//3.返回后并调用析构函数（如果外面没有接收 eg:TestClass newTest = DoubleTestClass(tc),这种情况如果有接收的话，系统会把这个临时对象给分配在外面接收的预留空间上。）
 	//优化
