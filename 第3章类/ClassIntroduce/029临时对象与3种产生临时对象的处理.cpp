@@ -66,70 +66,57 @@ TestClass DoubleTestClass(TestClass&tc)
 	TestClass te(0,0);//会产生一次构造函数和析构函数的调用
 	te.value01 = tc.value01 * 2;
 	te.value02 = tc.value02 * 2;
-	return te;	//1.调用了拷贝构造函数/拷贝赋值运算符(取决于外面接受它的变量)，产生一个临时对象tmp（用来返回）；
+	return te;	
+	//1.调用了拷贝构造函数，产生一个临时对象tmp（用来返回）；
 	//2.退出函数作用域te被析构；
-	//3.返回后并调用析构函数（如果外面没有接收 eg:TestClass newTest = DoubleTestClass(tc),这种情况如果有接收的话，系统会把这个临时对象给分配在外面接收的预留空间上。）
-	//优化
-	//return TestClass(tc.value01 * 2, tc.value02 * 2);//一个构造，如果外面没有对象接收这个临时对象，会退出这个函数析构掉这个临时对象。
+	//3.返回临时对象tmp后并调用析构函数（如果外面没有接收 eg:TestClass newTest = DoubleTestClass(tc),这种情况如果有接收的话，系统会把这个临时对象给分配在外面接收的预留空间上。）
+	//优化:
+	//return TestClass(tc.value01 * 2, tc.value02 * 2);//调用构造函数，产生了临时对象tmp。如果外面没有对象接收这个临时对象tmp，则临时对象tmp会被析构掉。
 }
 int main(void)
 {
-
-
 	int number01 = 100;
 	int&&reference01 = number01++;
 	//右值引用，reference01和number01没有关系了，
 	reference01 = 2032;
 
-
 	//1.以传值方式给函数传递参数
-	TestClass testclass01(12, 12);	//调用拷贝构造函数
+	TestClass testclass01(12, 12);	//调用构造函数
 	int sum = testclass01.Add(testclass01);	//调用拷贝构造函数
 	cout << "sum=" << sum << endl;
 
-
-
 	//2.类型转换生成临时对象--隐式类型转换以保证函数调用成功
-
 	TestClass testclass02(21,32);
-	testclass02 = 2000;//这一行产生了一个临时对象调用了构造函数（带默认参数）和析构函数
-	/*
-	 *  调用了带参数的构造函数
-		调用了拷贝赋值运算符
-		调用了析构函数
-		执行了3个操作：
-			1.使用2000创建了一个临时testClass对象
-			2.调用拷贝赋值运算符把临时对象的值赋值给testclass02对象
-			3.调用析构函数销毁testclass02对象
+	testclass02 = 2000;
+	/*输出结果:调用了带参数的构造函数,调用了拷贝赋值运算符,调用了析构函数
+	执行了3个操作：
+		1.使用2000创建了一个临时testClass对象tmp
+		2.调用拷贝赋值运算符把临时对象tmp的值赋值给testclass02对象
+		3.调用析构函数销毁tmp临时对象
 	 */
 	//优化方法--把定义对象和给对象赋值放在一行上
 	cout << "------------------------------" << endl;
 	TestClass testclass03 = 1000;	//只调用了构造函数
 	/*
-	 * 定义testclass03对象，系统就分配了内存空间。
-	 * 用1000构造testclass03对象直接在分配的内存空间分配，没有产生临时对象
+	 * 为testclass03对象预留了空间
+	 * 用1000构造testclass03对象，而是直接构造在了testclass03对象预留空间里，所以没有产生临时对象。
 	 */
 
 	//一般尽量避免下面这样子写。
 	//隐式类型转换以保证函数调用成功
 	char mystr[128] = "chchjjjjjjjooooo";
-	int result = countCh(mystr, 'o');//编译器会自动构造一个string类型的临时对象，传递过去
+	int result = countCh(mystr, 'o');//编译器对mystr这个char* 构造一个string类型的tmp临时对象，再把tmp传递过去给函数countCh当参数
 	/*系统只会为const string &strsource产生临时变量，而不会为非const对象string &strsource产生临时变量,因为认为你如果不加const 就可能会有修改临时对象的风险。
 	 */
 
-
 	//3.函数返回对象的情况
-
 	TestClass test_class04(23, 34);
 	DoubleTestClass(test_class04);//没有接收，函数返回的临时对象会被立即析构掉
-	test_class04=DoubleTestClass(test_class04);//这里接收临时对象调用拷贝赋值运算符函数进行赋值，就不会调用析构函数
-	TestClass test_classxx = DoubleTestClass(test_class04);//这里在函数里面就会调用拷贝构造函数生成临时对象，
-	//临时对象不会被析构，因为会被外面的test_classxx给接管了(接收临时对象的空间是分配再外面定义的test_classxx的预留空间上的)
+	test_class04=DoubleTestClass(test_class04);//这里接收函数返回的临时对象tmp后，调用拷贝赋值运算符函数将tmp赋值给了test_class04对象，之后tmp会被析构
+	TestClass test_classxx = DoubleTestClass(test_class04);//这里在函数里面构造的临时对象tmp就构造在了TestClass test_classxx对象的预留空间上,这行结束tmp不会释放
 
-
-	//如果使用右值引用来接受.与上面那一行TestClass test_classxx = DoubleTestClass(test_class04);得到的结果接收效果是一样的
-	TestClass &&test_class05 = DoubleTestClass(test_class04);//临时对象不会被析构,因为是引用，所以不会调用拷贝赋值运算符
-	//临时对象是右值，所以才能被右值引用所接管
+	//下面的一行与上面那一行TestClass test_classxx = DoubleTestClass(test_class04);得到的结果接收效果是一样的
+	TestClass &&test_class05 = DoubleTestClass(test_class04);//tmp临时对象是右值，给test_class05对象进行右值绑定了。
 	system("pause");
 	return 0;
 }
@@ -145,22 +132,13 @@ int main(void)
 *	在栈上分配的临时对象，不用我们手工去释放，但是临时对象产生会影响程序的效率。
 *	这些临时对象是我们后面深入学习的基础。
 *	
-*	
 *
 *(2)产生临时对象的情况和解决
 *	1.以传值方式给函数传递参数--会调用拷贝构造函数
 *		如何优化，变为引用
 *	2.类型转换生成临时对象--隐式类型转换以保证函数调用成功
 *	3.函数返回对象的情况
-*
 *		临时对象没有接收，会立刻调用析构函数析构，如果有接收，可能调用拷贝赋值运算符。引用不调用。
 *
-*
-*
-*2019年11月22日21:42:59
-* Sunrise于东北电力大学第二教学楼1121实验室
-*
-
-
 *
 */
