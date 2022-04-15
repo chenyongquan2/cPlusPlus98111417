@@ -35,9 +35,10 @@ public:
 	}
 	
 	//传统new
-	void *operator new(size_t size,void*pHead)
-	{
-		return  pHead;//收到原始地址，返回即可
+	void *operator new(size_t size)
+	{	
+		A *p = (A*)malloc(size);
+		return (void *)p;
 	}
 	
 	//定位new重载
@@ -47,6 +48,7 @@ public:
 	}
 	
 	//重载的多个版本的new
+	//当调用 A* p1 = new (120, 343)A();
 	void *operator new(size_t size, int v1, int v2)
 	{
 		cout << "调用了重载的双v的new" << endl;
@@ -71,12 +73,12 @@ int main(void)
 	//A *myA = new A();//调用传统new	
 	
 	void *myPlaceNew02 = (void*)new char[sizeof(A)];
-	A*myA02 = new (myPlaceNew02)A(2);//调用有参数构造函数在myPlaceNew构造对象
+	A*myA02 = new (myPlaceNew02)A(2);//调用有一个参数的构造函数在myPlaceNew的空间构造对象
 	
 	delete myA;//ok，也会去调用类对象的析构函数以及释放内存，等价于下面两句(下面的写法更加灵活)
 	//怎么析构
 	myA->~A();//构造函数不可以手动调用，析构函数可以手动调用
-	delete[](void*)myA;
+	delete[](void*)myA;//因为分配“void *myPlaceNew = (void*)new char[sizeof(A)];” 用的是[]分配，所以这里删除也要配套delete[] 
 	
 	myA02->~A();
 	delete[](void*)myA02;
