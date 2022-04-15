@@ -46,7 +46,7 @@ public:
 			//把分配出来的这一大块内存（5小块），彼此用链起来，供后续使用
 			for (int i = 0; i < m_sTrunkCout - 1; ++i) //0--3
 			{
-				tmplink->next = (obj *)((char *)tmplink + size);
+				tmplink->next = (obj *)((char *)tmplink + size);//此时不能这样写 tmplink->next = tmplink + 1; 因为这里+1和正确写法的+size效果不一样
 				tmplink = tmplink->next;
 			} //end for
 			tmplink->next = nullptr;
