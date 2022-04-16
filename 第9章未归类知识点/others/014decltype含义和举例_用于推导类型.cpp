@@ -28,14 +28,14 @@ int main(void)
 	auto number01 = i;//number01=int 传值方式推断，引用属性和const属性都会被抛弃
 	decltype(i) number02 = 23;//number02=const int类型。。i是什么类型，number02就是什么类型
 	//如果decltype是个变量，则变量中的const属性会返回。
-	decltype(reference01) number03 = number02;//const属性和引用属性都会保留   int &类型
+	decltype(reference01) number03 = number02;//const属性和引用属性都会保留   const int &类型
 	//用于类
 	decltype(CT::i) number04;//number04=int
 	CT temCT;
 	decltype(temCT) temCT02;//temCT02=CT类型
 	decltype(temCT02.j)number05;//number05=int
 
-	auto &&number06 = i;//万能引用  --auto =int,number06=int&
+	auto &&number06 = i;//万能引用  --auto =int&,number06=int&
 	decltype(number06) && number07 = i;//这里用到引用折叠，折叠成了左值， int &number07=i;
 	
 	//1.2decltype的圆括号内个变量，表达式。返回表达式结果对应类型。
@@ -47,7 +47,7 @@ int main(void)
 	decltype(reference02 + 1) number09 = 454;// j=int ()内是整形表达式 number09类型是int
 	decltype(p1)p2=&j;//p2=int*类型
 	*p2 = 43;
-	decltype(*p2) number10 = j;//****
+	decltype(*p2) number10 = j;//这里number10的类型为 = int &
 	/*
 	 *number10=int&类型
 	 * *p2表示指针p2所指向的内存空间，而且能够给内存空间赋值，所以是个左值
@@ -71,10 +71,6 @@ int main(void)
 
 	decltype(myfunctionTest()) myreturn = 0;//const int&&类型 函数返回值
 
-	
-
-
-	
 	system("pause");
 	return 0;
 }
