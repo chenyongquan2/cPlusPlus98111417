@@ -21,8 +21,8 @@ int main(void)
 	 * 
 	 */
 	int i = 10;
-	int&& ir1 = std::forward<int>(i);//转换成左值
-	int& ir2 = std::forward<int &>(i);//转换成右值
+	int&& ir1 = std::forward<int>(i);
+	int& ir2 = std::forward<int &>(i);
 	
 	system("pause");
 	return 0;
